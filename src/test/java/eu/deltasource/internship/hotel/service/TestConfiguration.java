@@ -17,7 +17,6 @@ import static eu.deltasource.internship.hotel.domain.commodity.BedType.SINGLE;
 /**
  * This test class has a ready initialization for the rooms of the hotel,
  * which you can use for testing! Add more when needed.
- *
  */
 public class TestConfiguration {
 
@@ -51,16 +50,20 @@ public class TestConfiguration {
         Set<AbstractCommodity> singleSet = new HashSet<>(Arrays.asList(new Bed(SINGLE), new Toilet(), new Shower()));
 
         // commodities for a double room with king size bed
-        Set<AbstractCommodity> kingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE), new Toilet(), new Shower()));
+        Set<AbstractCommodity> kingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE), new Toilet(),
+                new Shower()));
 
         // commodities for a 3 person room with a king size and a single
-        Set<AbstractCommodity> threePeopleKingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE), new Bed(SINGLE), new Toilet(), new Shower()));
+        Set<AbstractCommodity> threePeopleKingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE),
+                new Bed(SINGLE), new Toilet(), new Shower()));
 
         // commodities for a 4 person room with 2 doubles
-        Set<AbstractCommodity> fourPersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.DOUBLE), new Bed(BedType.DOUBLE), new Toilet(), new Shower()));
+        Set<AbstractCommodity> fourPersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.DOUBLE),
+                new Bed(BedType.DOUBLE), new Toilet(), new Shower()));
 
         // commodities for a 4 person room with 2 doubles
-        Set<AbstractCommodity> fivePersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE), new Bed(BedType.DOUBLE), new Bed(SINGLE), new Toilet(), new Toilet(), new Shower()));
+        Set<AbstractCommodity> fivePersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE),
+                new Bed(BedType.DOUBLE), new Bed(SINGLE), new Toilet(), new Toilet(), new Shower()));
 
         // create some rooms
         Room doubleRoom = new Room(1, doubleSet);
@@ -71,7 +74,8 @@ public class TestConfiguration {
         Room fivePersonRoom = new Room(1, fivePersonSet);
 
         // adds the rooms to the repository, which then can be accesses from the RoomService
-        roomService.saveRooms(doubleRoom, singleRoom, kingSizeRoom, threePeopleKingSizeRoom, fourPersonRoom, fivePersonRoom);
+        roomService.saveRooms(doubleRoom, singleRoom, kingSizeRoom, threePeopleKingSizeRoom, fourPersonRoom,
+                fivePersonRoom);
 
     }
 }

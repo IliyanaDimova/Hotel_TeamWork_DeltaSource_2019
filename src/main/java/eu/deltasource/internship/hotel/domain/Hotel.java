@@ -8,10 +8,10 @@ import eu.deltasource.internship.hotel.service.RoomService;
  * Right now you can imagine the Hotel as an API Layer,
  * where you can get REST requests and map them to the
  * corresponding services.
- *
+ * <p>
  * P.S. Don't mind this layer for now, it serves only as an example.
  * REST Controllers should always be separated.
- *
+ * <p>
  * Created by Taner Ilyazov - Delta Source Bulgaria on 2019-07-28.
  */
 public class Hotel {

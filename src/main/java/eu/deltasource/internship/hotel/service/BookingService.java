@@ -81,7 +81,7 @@ public class BookingService {
 
     /**
      * Returns all of the bookings
-     * @return a read only list of the bookings 
+     * @return a read only list of the bookings
      */
 
     public List<Booking> getAllBookings(){

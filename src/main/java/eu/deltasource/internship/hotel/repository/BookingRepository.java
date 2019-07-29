@@ -34,7 +34,7 @@ public class BookingRepository {
     /**
      * Method, which checks the repository if
      * there is an item available with the given id.
-     *
+     * <p>
      * Check this always, before using operations with id's.
      */
     public boolean existsById(int id) {
