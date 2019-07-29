@@ -29,6 +29,10 @@ public class RoomService {
         return roomRepository.findById(room.getRoomId());
     }
 
+    public boolean existsById(int id) {
+        return roomRepository.existsById(id);
+    }
+
     public void saveRooms(Room... rooms) {
         roomRepository.saveAll(rooms);
     }
