@@ -1,0 +1,9 @@
+git //IntelliJ generated:
+/out/
+/.idea/
+
+//Maven generated:
+target/
+
+Hotel_Mission1.iml
+*.iml
