@@ -106,6 +106,9 @@ public class BookingService {
      * @return boolean depending if the item was successfully deleted or not
      */
     public boolean removeBookingById(int id) {
+        if(!bookingRepository.existsById(id)){
+            throw new InvalidParameterException("Booking with id does not exist");
+        }
         return bookingRepository.deleteById(id);
     }
 
