@@ -16,7 +16,12 @@ public class GuestService {
     public GuestService(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
     }
-    
+
+    /**
+     * Checks if guest by given ID exists
+     * @param id given ID
+     * @return true if the guest exists
+     */
     public boolean existsById(int id) {
         return guestRepository.existsById(id);
     }

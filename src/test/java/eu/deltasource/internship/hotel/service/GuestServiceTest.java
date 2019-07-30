@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GuestServiceTest {
@@ -19,6 +20,18 @@ public class GuestServiceTest {
         gs.createGuest("Pesho", "Peshov", Gender.MALE);
         gs.createGuest("Penka", "Peshova", Gender.FEMALE);
         gs.createGuest("Ganka", "Petrova", Gender.FEMALE);
+    }
+
+    @Test
+    public void testExistsById() {
+        //given
+        //when
+        //then
+        assertEquals(true, gs.existsById(2));
+        assertFalse(gs.existsById(4));
+    }
+
+    private void assertTrue(int size) {
     }
 
     @Test
