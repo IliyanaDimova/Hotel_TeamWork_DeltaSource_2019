@@ -2,6 +2,7 @@ package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
