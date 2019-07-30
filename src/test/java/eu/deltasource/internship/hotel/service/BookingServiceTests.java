@@ -5,15 +5,12 @@ import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.domain.Hotel;
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.domain.commodity.*;
-import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.core.type.filter.AssignableTypeFilter;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
@@ -33,15 +30,15 @@ public class BookingServiceTests {
     private static BookingService bookingService;
 
     @BeforeEach
-    void setUp(){
-        Guest guest = new Guest(5,"gosho","minka", Gender.FEMALE);
+    void setUp() {
+        Guest guest = new Guest(5, "gosho", "minka", Gender.FEMALE);
         bookingRepository = new BookingRepository();
         guestRepository = new GuestRepository();
         guestRepository.save(guest);
         roomRepository = new RoomRepository();
         guestService = new GuestService(guestRepository);
         roomService = new RoomService(roomRepository);
-        bookingService = new BookingService(bookingRepository,roomService,guestService);
+        bookingService = new BookingService(bookingRepository, roomService, guestService);
 
         //hotel API
 
@@ -89,73 +86,83 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void createBooking_throwsInvalidParameter_whenPassedNull(){
+    public void createBooking_throwsInvalidParameter_whenPassedNull() {
         //given
         setUp();
         // when
         //then
-        Assertions.assertThrows(InvalidParameterException.class, ()-> {bookingService.createBooking(1,
-                1,1,1,null, null);});
-        Assertions.assertThrows(InvalidParameterException.class, ()-> {bookingService.createBooking(1,
-                1,1,1,LocalDate.now(), null);});
-        Assertions.assertThrows(InvalidParameterException.class, ()-> {bookingService.createBooking(1,
-                1,1,1,LocalDate.now(), LocalDate.now().minusDays(1));});
-        Assertions.assertThrows(InvalidParameterException.class, ()-> {bookingService.createBooking(1,
-                1,-1,1,LocalDate.now(), LocalDate.now().plusDays(1));});
+        Assertions.assertThrows(InvalidParameterException.class, () -> {
+            bookingService.createBooking(1,
+                    1, 1, 1, null, null);
+        });
+        Assertions.assertThrows(InvalidParameterException.class, () -> {
+            bookingService.createBooking(1,
+                    1, 1, 1, LocalDate.now(), null);
+        });
+        Assertions.assertThrows(InvalidParameterException.class, () -> {
+            bookingService.createBooking(1,
+                    1, 1, 1, LocalDate.now(), LocalDate.now().minusDays(1));
+        });
+        Assertions.assertThrows(InvalidParameterException.class, () -> {
+            bookingService.createBooking(1,
+                    1, -1, 1, LocalDate.now(), LocalDate.now().plusDays(1));
+        });
     }
 
     @Test
-    public void createBooking_createsBooking_whenCorrectParameters(){
+    public void createBooking_createsBooking_whenCorrectParameters() {
         //given
         setUp();
         //when
-        bookingService.createBooking(1, 1,1,1,LocalDate.now(),
+        bookingService.createBooking(1, 1, 1, 1, LocalDate.now(),
                 LocalDate.now().plusDays(1));
         //then
-        Assertions.assertThrows(InvalidParameterException.class,()->{ bookingService.createBooking(1, 1,1,1,LocalDate.now(),
-                LocalDate.now().plusDays(1));});
+        Assertions.assertThrows(InvalidParameterException.class, () -> {
+            bookingService.createBooking(1, 1, 1, 1, LocalDate.now(),
+                    LocalDate.now().plusDays(1));
+        });
     }
 
     @Test
-    public void getAllBookings_returnsBOoking(){
+    public void getAllBookings_returnsBOoking() {
         //given
         setUp();
         //when
-        bookingService.createBooking(1, 1,1,1,LocalDate.now(),
+        bookingService.createBooking(1, 1, 1, 1, LocalDate.now(),
                 LocalDate.now().plusDays(1));
         //then
-        Assertions.assertEquals(bookingService.getAllBookings().size(),1);
+        Assertions.assertEquals(bookingService.getAllBookings().size(), 1);
     }
 
     @Test
-    public void updateBooking_updatesBooking_singleBooking(){
+    public void updateBooking_updatesBooking_singleBooking() {
         //given
         setUp();
-        bookingService.createBooking(1, 1,1,1,LocalDate.now(),
+        bookingService.createBooking(1, 1, 1, 1, LocalDate.now(),
                 LocalDate.now().plusDays(1));
         //when
-        bookingService.updateBooking(1,LocalDate.now().plusDays(2),LocalDate.now().plusDays(3));
+        bookingService.updateBooking(1, LocalDate.now().plusDays(2), LocalDate.now().plusDays(3));
         //then
-        Assertions.assertEquals(LocalDate.now().plusDays(2),bookingService.getBookingById(1).getFrom());
-        Assertions.assertEquals(LocalDate.now().plusDays(3),bookingService.getBookingById(1).getTo());
+        Assertions.assertEquals(LocalDate.now().plusDays(2), bookingService.getBookingById(1).getFrom());
+        Assertions.assertEquals(LocalDate.now().plusDays(3), bookingService.getBookingById(1).getTo());
     }
 
     @Test
-    public void updateBooking_throws_whenOverlapping(){
+    public void updateBooking_throws_whenOverlapping() {
         //given
         setUp();
-        bookingService.createBooking(1, 1,1,1,LocalDate.now(),
+        bookingService.createBooking(1, 1, 1, 1, LocalDate.now(),
                 LocalDate.now().plusDays(1));
-        bookingService.createBooking(2, 1,1,1,LocalDate.now().plusDays(5),
+        bookingService.createBooking(2, 1, 1, 1, LocalDate.now().plusDays(5),
                 LocalDate.now().plusDays(7));
         //when
         //then
-        Assertions.assertThrows(InvalidParameterException.class,()->{bookingService.updateBooking(1,LocalDate.now()
-                .plusDays(2), LocalDate.now().plusDays(8));
+        Assertions.assertThrows(InvalidParameterException.class, () -> {
+            bookingService.updateBooking(1, LocalDate.now()
+                    .plusDays(2), LocalDate.now().plusDays(8));
         });
 
     }
-
 
 
 }

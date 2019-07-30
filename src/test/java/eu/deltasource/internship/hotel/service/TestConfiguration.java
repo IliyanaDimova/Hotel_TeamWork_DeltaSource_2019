@@ -6,7 +6,6 @@ import eu.deltasource.internship.hotel.domain.commodity.*;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
-import org.junit.Before;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,7 +19,6 @@ import static eu.deltasource.internship.hotel.domain.commodity.BedType.SINGLE;
  */
 public class TestConfiguration {
 
-    @Before
     public void setUp() {
 
         // Initialize Repositories
