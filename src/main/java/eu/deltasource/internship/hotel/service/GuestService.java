@@ -17,6 +17,10 @@ public class GuestService {
         this.guestRepository = guestRepository;
     }
 
+<<<<<<< HEAD
+    public boolean existsById(int id) {
+        return guestRepository.existsById(id);
+=======
     /**
      * Adds a new guest to GuestRepository
      *
@@ -69,5 +73,6 @@ public class GuestService {
      */
     public void removeGuestById(int guestId) {
         guestRepository.delete(returnGuestById(guestId));
+>>>>>>> f2ef9254ee1908f527b88468b785a2e4a9b286b2
     }
 }
