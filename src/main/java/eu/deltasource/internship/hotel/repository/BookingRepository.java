@@ -2,6 +2,7 @@ package eu.deltasource.internship.hotel.repository;
 
 import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +52,8 @@ public class BookingRepository {
     public Booking findById(int id) {
         for (Booking item : repository) {
             if (item.getBookingId() == id)
-                return new Booking(item);
+              //  return new Booking(item);
+                return item;
         }
         throw new ItemNotFoundException("A booking with id: " + id + " was not found!");
     }

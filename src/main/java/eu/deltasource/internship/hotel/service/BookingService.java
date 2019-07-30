@@ -5,6 +5,7 @@ import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.awt.print.Book;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,9 +31,7 @@ public class BookingService {
     //todo annotate accordingly & map
     /**
      * Adds a new entry to the repository, throws invalid param exception, if the booking is null or if the
-     * booking
-     * has invalid date values
-     *
+     * booking has a from value which is greater than the to value
      * @param bookingId      id of the booking
      * @param guestId        id of the guest
      * @param roomId         id of the room
@@ -67,15 +66,16 @@ public class BookingService {
 
         Room room = roomService.getRoomById(roomId);
 
-        if (isSpaceEnough(numberOfPeople, room)) {
+        if (!isSpaceEnough(numberOfPeople, room)) {
             throw new InvalidParameterException("Not enough space in room");
         }
 
         for (Booking booking : bookingRepository.findAll()) {
-            if (checkForOverlappingDates(from, to, booking)) {
+            if (checkForOverlappingDates(from, to, booking) && booking.getRoomId() == roomId) {
                 throw new InvalidParameterException("Booking overlaps with another one");
             }
         }
+
         bookingRepository.save(new Booking(bookingId, guestId, roomId, numberOfPeople, from, to));
     }
 
@@ -83,9 +83,46 @@ public class BookingService {
      * Returns all of the bookings
      * @return a read only list of the bookings
      */
-
     public List<Booking> getAllBookings(){
         return bookingRepository.findAll();
+    }
+
+    /**
+     * Returns a booking by it's id, throws if the booking does not exist
+     * @param id id of the booking
+     * @return the booking which has matching id
+     */
+    public Booking getBookingById(int id){
+        return bookingRepository.findById(id);
+    }
+
+    //todo possible param check
+    /**
+     * Attempts to delete the item with matching id, returns a boolean
+     * @param id id of the item to be deleted
+     * @return boolean depending if the item was successfully deleted or not
+     */
+    public boolean removeBookingById(int id){
+        return bookingRepository.deleteById(id);
+    }
+
+    //todo not working correctly, fix
+    /**
+     * Updates a booking
+     * @param id id of the booking to be updated
+     * @param from new from date
+     * @param to new to date
+     */
+    public void updateBooking(int id,LocalDate from, LocalDate to){
+        Booking book = bookingRepository.findById(id);
+
+        for (Booking booking : bookingRepository.findAll()) {
+            if (checkForOverlappingDates(from, to, booking) && booking.getRoomId() == book.getRoomId()) {
+                throw new InvalidParameterException("Booking overlaps with another one");
+            }
+        }
+
+        book.setBookingDates(from,to);
     }
 
 
