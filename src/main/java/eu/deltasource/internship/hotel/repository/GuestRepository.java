@@ -62,7 +62,7 @@ public class GuestRepository {
      * using the item count in the repository
      */
     public void save(Guest item) {
-        Guest newGuest = new Guest(count() + 1, item.getFirstName(), item.getLastName(), item.getGender());
+        Guest newGuest = new Guest(idGenerator(), item.getFirstName(), item.getLastName(), item.getGender());
         repository.add(newGuest);
     }
 
@@ -88,10 +88,15 @@ public class GuestRepository {
      * Returns a copy of the updated item
      */
     public Guest updateGuest(Guest item) {
-        Guest updatedGuest = findById(item.getGuestId());
-        updatedGuest.changeGender(item.getGender());
-        updatedGuest.changeFirstAndLastNames(item.getFirstName(), item.getLastName());
-        return new Guest(updatedGuest);
+        for (Guest guest : repository) {
+            if (guest.getGuestId() == item.getGuestId()) {
+                guest.changeGender(item.getGender());
+                guest.changeFirstAndLastNames(item.getFirstName(), item.getLastName());
+                return new Guest(guest);
+            }
+        }
+
+        throw new ItemNotFoundException("Guest not found in repository!");
     }
 
     /**
@@ -113,8 +118,12 @@ public class GuestRepository {
      * returns false if there's no match and the list is unchanged.
      */
     public boolean deleteById(int id) {
-        Guest item = findById(id);
-        return delete(item);
+        for (Guest guest : repository) {
+            if (guest.getGuestId() == id) {
+                return delete(guest);
+            }
+        }
+        return false;
     }
 
     /**
@@ -129,5 +138,19 @@ public class GuestRepository {
      */
     public int count() {
         return repository.size();
+    }
+
+
+    /**
+     * generates an ID for the guest
+     *
+     * @return generated ID
+     */
+    private int idGenerator() {
+        if (count() == 0) {
+            return count() + 1;
+        }
+
+        return repository.get(count() - 1).getGuestId() + 1;
     }
 }

@@ -3,7 +3,6 @@ package eu.deltasource.internship.hotel.service;
 import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
@@ -12,7 +11,6 @@ import java.util.List;
 /**
  * Created by Taner Ilyazov - Delta Source Bulgaria on 2019-07-28.
  */
-@RequestMapping("/booking")
 public class BookingService {
 
     private final BookingRepository bookingRepository;
@@ -140,5 +138,4 @@ public class BookingService {
     private boolean isSpaceEnough(int peopleCount, Room room) {
         return room.getRoomCapacity() >= peopleCount;
     }
-
 }
