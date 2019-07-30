@@ -20,7 +20,7 @@ public class GuestService {
     public boolean existsById(int id) {
         return guestRepository.existsById(id);
     }
-    
+
     /**
      * Adds a new guest to GuestRepository
      *
