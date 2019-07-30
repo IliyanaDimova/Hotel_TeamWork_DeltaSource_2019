@@ -148,7 +148,7 @@ public class RoomRepository {
             return count() + 1;
         }
 
-        return repository.get(count()).getRoomId() + 1;
+        return repository.get(count() - 1).getRoomId() + 1;
 
     }
 }
