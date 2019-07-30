@@ -147,8 +147,8 @@ public class BookingRepository {
      * @return the generated ID
      */
     private int idGenerator() {
-        if (repository.isEmpty()) {
-            return 1;
+        if (count() == 0) {
+            return count() + 1;
         }
 
         return repository.get(count()).getBookingId() + 1;
