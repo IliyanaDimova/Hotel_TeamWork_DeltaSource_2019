@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("guests")
@@ -24,13 +24,25 @@ public class GuestControllers {
 
     @PostMapping
     @ResponseBody
-    public void returnReturnAllGuests(@PathVariable String firstName, @PathVariable String lastName, @PathVariable Gender gender){
+    public void returnCreateGuest(@PathVariable String firstName, @PathVariable String lastName, @PathVariable Gender gender){
         guestService.createGuest(firstName, lastName, gender);
     }
 
-    @RequestMapping(value = "/", method = GET)
+    @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
-    public void returnReturnAllGuess(@PathVariable String firstName, @PathVariable String lastName, @PathVariable Gender gender){
-        guestService.createGuest(firstName, lastName, gender);
+    public void returnGuestById(@PathVariable int id){
+        guestService.returnGuestById(id);
     }
+
+	@RequestMapping(value = "/{id}", method = DELETE)
+	@ResponseBody
+	public void returnRemoveGuestById(@PathVariable int id){
+		guestService.removeGuestById(id);
+	}
+
+	@RequestMapping(value = "/{id}", method = POST)
+	@ResponseBody
+	public void returnUpdateGuestById(@PathVariable int id, @PathVariable String firstName, @PathVariable String lastName, @PathVariable Gender gender){
+		guestService.updateGuestById(id, firstName, lastName, gender);
+	}
 }
