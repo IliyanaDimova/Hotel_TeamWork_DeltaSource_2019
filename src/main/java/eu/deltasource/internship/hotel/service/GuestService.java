@@ -16,6 +16,10 @@ public class GuestService {
     public GuestService(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
     }
+    
+    public boolean existsById(int id) {
+        return guestRepository.existsById(id);
+    }
 
     /**
      * Adds a new guest to GuestRepository
