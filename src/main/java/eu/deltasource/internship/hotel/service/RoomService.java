@@ -10,38 +10,42 @@ import java.util.List;
  */
 public class RoomService {
 
-    private final RoomRepository roomRepository;
+	private final RoomRepository roomRepository;
 
-    public RoomService(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
-    }
+	public RoomService(RoomRepository roomRepository) {
+		this.roomRepository = roomRepository;
+	}
 
-    public Room getRoomById(int id) {
-        return roomRepository.findById(id);
-    }
+	public Room getRoomById(int id) {
+		return roomRepository.findById(id);
+	}
 
-    public List<Room> findRooms() {
-        return roomRepository.findAll();
-    }
+	public List<Room> findRooms() {
+		return roomRepository.findAll();
+	}
 
-    public Room saveRoom(Room room) {
-        roomRepository.save(room);
-        return roomRepository.findById(room.getRoomId());
-    }
+	public Room saveRoom(Room room) {
+		roomRepository.save(room);
+		return roomRepository.findById(room.getRoomId());
+	}
 
-    public void saveRooms(Room... rooms) {
-        roomRepository.saveAll(rooms);
-    }
+	public boolean existsById(int id) {
+		return roomRepository.existsById(id);
+	}
 
-    public boolean deleteRoom(Room room) {
-        return roomRepository.delete(room);
-    }
+	public void saveRooms(Room... rooms) {
+		roomRepository.saveAll(rooms);
+	}
 
-    public boolean deleteRoomById(int id) {
-        return roomRepository.deleteById(id);
-    }
+	public boolean deleteRoom(Room room) {
+		return roomRepository.delete(room);
+	}
 
-    public Room updateRoom(Room room) {
-        return roomRepository.updateRoom(room);
-    }
+	public boolean deleteRoomById(int id) {
+		return roomRepository.deleteById(id);
+	}
+
+	public Room updateRoom(Room room) {
+		return roomRepository.updateRoom(room);
+	}
 }
