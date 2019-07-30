@@ -8,7 +8,7 @@ public enum BedType {
 
     private final int size;
 
-    BedType(int size){
+    BedType(int size) {
         this.size = size;
     }
 

@@ -143,6 +143,7 @@ public class GuestRepository {
 
     /**
      * generates an ID for the guest
+     *
      * @return generated ID
      */
     private int idGenerator() {
