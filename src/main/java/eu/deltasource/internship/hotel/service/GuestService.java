@@ -2,10 +2,7 @@ package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
-import eu.deltasource.internship.hotel.exception.FailedInitializationException;
-import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
-import org.junit.internal.runners.statements.Fail;
 
 import java.util.List;
 
@@ -54,10 +51,10 @@ public class GuestService {
      * Updates a guest's name and gender by given guest ID
      * Throws Exception if Guest with this ID doesn't exist!
      *
-     * @param guestId   the ID of the guest we want to update
-     * @param firstName to be updated
-     * @param lastName  to be updated
-     * @param gender    to be updated
+     * @param //guestId   the ID of the guest we want to update
+     * @param //firstName to be updated
+     * @param //lastName  to be updated
+     * @param //gender    to be updated
      */
     public void updateGuestById(int guestId, String firstName, String lastName, Gender gender) {
         Guest updatedGuest = new Guest(guestId, firstName, lastName, gender);

@@ -2,16 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a51edaea-3894-4879-9a60-9139c3173472" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/eu/deltasource/internship/hotel/service/GuestServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_unknown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/controllers/GuestControllers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/GuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/GuestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/service/GuestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/service/GuestService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/HotelApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/Booking.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/Gender.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/Guest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/Hotel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/Room.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/commodity/AbstractCommodity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/commodity/Bed.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/commodity/BedType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/commodity/Shower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/domain/commodity/Toilet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/exception/FailedInitializationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/exception/ItemNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/repository/BookingRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/repository/GuestRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/repository/RoomRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/service/BookingService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/service/GuestService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eu/deltasource/internship/hotel/service/RoomService.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,21 +37,25 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/repository/GuestRepository.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="93" column="39" lean-forward="true" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
+              <caret line="51" column="35" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
               <folding>
+                <element signature="e#755#756#0" expanded="true" />
+                <element signature="e#818#819#0" expanded="true" />
                 <element signature="e#2126#2127#0" expanded="true" />
                 <element signature="e#2171#2172#0" expanded="true" />
+                <element signature="e#2916#2917#0" expanded="true" />
                 <element signature="e#2962#2963#0" expanded="true" />
+                <element signature="e#3385#3386#0" expanded="true" />
                 <element signature="e#3419#3420#0" expanded="true" />
+                <element signature="e#3519#3520#0" expanded="true" />
                 <element signature="e#3559#3560#0" expanded="true" />
               </folding>
             </state>
@@ -46,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/domain/Guest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-195">
-              <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+            <state relative-caret-position="289">
+              <caret line="17" column="36" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -55,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/eu/deltasource/internship/hotel/service/GuestServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="70" selection-start-line="70" selection-end-line="70" />
+            <state relative-caret-position="247">
+              <caret line="70" column="28" selection-start-line="70" selection-start-column="28" selection-end-line="70" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,12 +84,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/GuestService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/controllers/GuestControllers.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="63" column="48" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
+            <state relative-caret-position="102">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="244">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/GuestService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
+              <folding>
                 <element signature="e#1165#1166#0" expanded="true" />
                 <element signature="e#1213#1214#0" expanded="true" />
                 <element signature="e#1461#1462#0" expanded="true" />
@@ -94,12 +133,19 @@
       <find>null</find>
       <find>update</find>
       <find>dele</find>
-      <find>findby</find>
-      <find>initializeNamesAndNullChecks</find>
       <find>upda</find>
       <find>getguest</find>
       <find>findbyid</find>
       <find>upd</find>
+      <find>createg</find>
+      <find>findby</find>
+      <find>all</find>
+      <find>find</find>
+      <find>returngu</find>
+      <find>findById</find>
+      <find>returnAllGuests</find>
+      <find>initializeNamesAndNullChecks</find>
+      <find>get</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,11 +155,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/BookingService.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/repository/BookingRepository.java" />
-        <option value="$PROJECT_DIR$/src/test/java/eu/deltasource/internship/hotel/service/GuestServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/repository/GuestRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/eu/deltasource/internship/hotel/service/GuestServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/GuestService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/controllers/GuestControllers.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -127,8 +174,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -202,7 +249,7 @@
               <item name="deltasource" type="462c0819:PsiDirectoryNode" />
               <item name="internship" type="462c0819:PsiDirectoryNode" />
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
@@ -215,31 +262,6 @@
               <item name="internship" type="462c0819:PsiDirectoryNode" />
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
-              <item name="commodity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="eu" type="462c0819:PsiDirectoryNode" />
-              <item name="deltasource" type="462c0819:PsiDirectoryNode" />
-              <item name="internship" type="462c0819:PsiDirectoryNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="exception" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="eu" type="462c0819:PsiDirectoryNode" />
-              <item name="deltasource" type="462c0819:PsiDirectoryNode" />
-              <item name="internship" type="462c0819:PsiDirectoryNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="repository" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
@@ -319,62 +341,6 @@
             <path>
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.junit.platform:junit-platform-commons:1.5.1" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.junit.platform:junit-platform-commons:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="junit-platform-commons-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.junit.platform:junit-platform-commons:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="junit-platform-commons-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.junit.platform:junit-platform-commons:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="junit-platform-commons-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="junit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.junit.platform:junit-platform-commons:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="junit-platform-commons-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="junit" type="462c0819:PsiDirectoryNode" />
-              <item name="platform" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.junit.platform:junit-platform-commons:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="junit-platform-commons-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="junit" type="462c0819:PsiDirectoryNode" />
-              <item name="platform" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.junit.platform:junit-platform-commons:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="junit-platform-commons-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="junit" type="462c0819:PsiDirectoryNode" />
-              <item name="platform" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -502,34 +468,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 14h 14m 43s.xml">
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 15h 25m 36s.xml">
       <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 14h 19m 36s.xml">
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 15h 31m 19s.xml">
       <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 14h 19m 39s.xml">
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 16h 55m 06s.xml">
       <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GuestServiceTest_testUpdateGuestByIdException - 2019.07.29 at 14h 23m 59s.xml">
-      <configuration name="GuestServiceTest.testUpdateGuestByIdException" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GuestServiceTest_testUpdateGuestByIdException - 2019.07.29 at 14h 24m 31s.xml">
-      <configuration name="GuestServiceTest.testUpdateGuestByIdException" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GuestServiceTest_testRemoveGuestByIdException - 2019.07.29 at 14h 25m 31s.xml">
-      <configuration name="GuestServiceTest.testRemoveGuestByIdException" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GuestServiceTest_testRemoveGuestById - 2019.07.29 at 14h 27m 02s.xml">
-      <configuration name="GuestServiceTest.testRemoveGuestById" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GuestServiceTest - 2019.07.29 at 15h 00m 05s.xml">
-      <configuration name="GuestServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 15h 03m 49s.xml">
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 16h 56m 03s.xml">
       <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 15h 09m 21s.xml">
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 16h 57m 45s.xml">
+      <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 16h 58m 06s.xml">
+      <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 17h 02m 00s.xml">
+      <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 17h 04m 07s.xml">
+      <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 17h 09m 59s.xml">
+      <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GuestServiceTest_testUpdateGuestById - 2019.07.29 at 17h 10m 55s.xml">
       <configuration name="GuestServiceTest.testUpdateGuestById" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -537,17 +503,13 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2496617" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25372124" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" weight="0.32941177" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.32941177" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32941177" />
@@ -555,14 +517,18 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32941177" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.32941177" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
     <layout-to-restore>
       <window_info id="Image Layers" order="0" />
@@ -603,12 +569,6 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/GuestService.java</url>
-          <line>62</line>
-          <properties />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/repository/GuestRepository.java</url>
           <line>90</line>
           <properties />
@@ -622,13 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -665,20 +618,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/domain/Guest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-195">
-          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+        <state relative-caret-position="289">
+          <caret line="17" column="36" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/repository/GuestRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="93" column="39" lean-forward="true" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
+          <caret line="51" column="35" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
           <folding>
+            <element signature="e#755#756#0" expanded="true" />
+            <element signature="e#818#819#0" expanded="true" />
             <element signature="e#2126#2127#0" expanded="true" />
             <element signature="e#2171#2172#0" expanded="true" />
+            <element signature="e#2916#2917#0" expanded="true" />
             <element signature="e#2962#2963#0" expanded="true" />
+            <element signature="e#3385#3386#0" expanded="true" />
             <element signature="e#3419#3420#0" expanded="true" />
+            <element signature="e#3519#3520#0" expanded="true" />
             <element signature="e#3559#3560#0" expanded="true" />
           </folding>
         </state>
@@ -686,8 +644,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/eu/deltasource/internship/hotel/service/GuestServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        <state relative-caret-position="247">
+          <caret line="70" column="28" selection-start-line="70" selection-start-column="28" selection-end-line="70" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -696,14 +654,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/service/GuestService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="63" column="48" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#1165#1166#0" expanded="true" />
             <element signature="e#1213#1214#0" expanded="true" />
             <element signature="e#1461#1462#0" expanded="true" />
             <element signature="e#1517#1518#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/eu/deltasource/internship/hotel/controllers/GuestControllers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
