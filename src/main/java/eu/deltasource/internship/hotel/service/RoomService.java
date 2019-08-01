@@ -10,19 +10,19 @@ import java.util.List;
  */
 public class RoomService {
 
-    private final RoomRepository roomRepository;
+	private final RoomRepository roomRepository;
 
-    public RoomService(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
-    }
+	public RoomService(RoomRepository roomRepository) {
+		this.roomRepository = roomRepository;
+	}
 
-    public Room getRoomById(int id) {
-        return roomRepository.findById(id);
-    }
+	public Room getRoomById(int id) {
+		return roomRepository.findById(id);
+	}
 
-    public List<Room> findRooms() {
-        return roomRepository.findAll();
-    }
+	public List<Room> findRooms() {
+		return roomRepository.findAll();
+	}
 
     public Room saveRoom(Room room) {
         roomRepository.save(room);
@@ -33,19 +33,19 @@ public class RoomService {
         return roomRepository.existsById(id);
     }
 
-    public void saveRooms(Room... rooms) {
-        roomRepository.saveAll(rooms);
-    }
+	public void saveRooms(Room... rooms) {
+		roomRepository.saveAll(rooms);
+	}
 
-    public boolean deleteRoom(Room room) {
-        return roomRepository.delete(room);
-    }
+	public boolean deleteRoom(Room room) {
+		return roomRepository.delete(room);
+	}
 
-    public boolean deleteRoomById(int id) {
-        return roomRepository.deleteById(id);
-    }
+	public boolean deleteRoomById(int id) {
+		return roomRepository.deleteById(id);
+	}
 
-    public Room updateRoom(Room room) {
-        return roomRepository.updateRoom(room);
-    }
+	public Room updateRoom(Room room) {
+		return roomRepository.updateRoom(room);
+	}
 }
