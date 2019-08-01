@@ -4,6 +4,7 @@ import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.service.GuestService;
+import eu.deltasource.internship.hotel.to.GuestTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@RequestMapping("guests")
+@RequestMapping("/guests")
 public class GuestControllers {
 	GuestRepository guestRepository = new GuestRepository();
 	GuestService guestService = new GuestService(guestRepository);
@@ -26,7 +27,7 @@ public class GuestControllers {
 	@ResponseBody
 	public void returnCreateGuest(@PathVariable String firstName, @PathVariable String lastName,
 								  @PathVariable Gender gender) {
-		guestService.createGuest(firstName, lastName, gender);
+		guestService.createGuest(new GuestTO(firstName, lastName, gender));
 	}
 
 	@RequestMapping(value = "/{id}", method = GET)
@@ -45,6 +46,6 @@ public class GuestControllers {
 	@ResponseBody
 	public void returnUpdateGuestById(@PathVariable int id, @PathVariable String firstName,
 									  @PathVariable String lastName, @PathVariable Gender gender) {
-		guestService.updateGuestById(id, firstName, lastName, gender);
+		guestService.updateGuestById(id, new GuestTO(firstName, lastName, gender));
 	}
 }

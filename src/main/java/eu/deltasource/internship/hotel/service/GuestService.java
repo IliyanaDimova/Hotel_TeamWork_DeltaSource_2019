@@ -3,6 +3,7 @@ package eu.deltasource.internship.hotel.service;
 import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
+import eu.deltasource.internship.hotel.to.GuestTO;
 
 import java.util.List;
 
@@ -30,12 +31,10 @@ public class GuestService {
 	/**
 	 * Adds a new guest to GuestRepository
 	 *
-	 * @param firstName
-	 * @param lastName
-	 * @param gender
+	 * @param guest transfer object for guest
 	 */
-	public void createGuest(String firstName, String lastName, Gender gender) {
-		Guest newGuest = new Guest(0, firstName, lastName, gender);
+	public void createGuest(GuestTO guest) {
+		Guest newGuest = new Guest(0, guest.getLastName(), guest.getFirstName(), guest.getGender());
 		guestRepository.save(newGuest);
 	}
 
@@ -62,12 +61,10 @@ public class GuestService {
 	 * Throws Exception if Guest with this ID doesn't exist!
 	 *
 	 * @param guestId   the ID of the guest we want to update
-	 * @param firstName to be updated
-	 * @param lastName  to be updated
-	 * @param gender    to be updated
+	 * @param newGuestData transfer object for Guest without ID
 	 */
-	public void updateGuestById(int guestId, String firstName, String lastName, Gender gender) {
-		Guest updatedGuest = new Guest(guestId, firstName, lastName, gender);
+	public void updateGuestById(int guestId, GuestTO newGuestData) {
+		Guest updatedGuest = new Guest(guestId, newGuestData.getFirstName(), newGuestData.getLastName(), newGuestData.getGender());
 		guestRepository.updateGuest(updatedGuest);
 	}
 
