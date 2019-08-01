@@ -1,6 +1,5 @@
 package eu.deltasource.internship.hotel.to;
 
-import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.exception.FailedInitializationException;
 
 import java.time.LocalDate;
@@ -20,6 +19,7 @@ public class BookingTO {
 
 	/**
 	 * Constructor with all params
+	 *
 	 * @param guestId
 	 * @param roomId
 	 * @param numberOfPeople
@@ -34,18 +34,8 @@ public class BookingTO {
 	}
 
 	/**
-	 * Constructor that constructs a TransferBooking by another TransferBooking
-	 * @param booking
-	 */
-	public BookingTO(BookingTO booking) {
-		this.guestId = booking.guestId;
-		this.roomId = booking.roomId;
-		this.numberOfPeople = booking.numberOfPeople;
-		setBookingDates(booking.from, booking.to);
-	}
-
-	/**
 	 * Sets the booking dates
+	 *
 	 * @param from
 	 * @param to
 	 */
