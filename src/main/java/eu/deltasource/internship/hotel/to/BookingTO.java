@@ -30,34 +30,59 @@ public class BookingTO {
 		this.guestId = guestId;
 		this.roomId = roomId;
 		this.numberOfPeople = numberOfPeople;
-		setBookingDates(from, to);
+		this.from = from;
+		this.to = to;
 	}
 
 	/**
 	 * Constructor that constructs a TransferBooking by another TransferBooking
 	 * @param booking
 	 */
-	public BookingTO(BookingTO booking) {
-		this.guestId = booking.guestId;
-		this.roomId = booking.roomId;
-		this.numberOfPeople = booking.numberOfPeople;
-		setBookingDates(booking.from, booking.to);
+	public BookingTO(Booking booking) {
+		this.guestId = booking.getGuestId();
+		this.roomId = booking.getRoomId();
+		this.numberOfPeople = booking.getNumberOfPeople();
+		this.from = booking.getFrom();
 	}
 
 	/**
-	 * Sets the booking dates
-	 * @param from
-	 * @param to
+	 * Getter for from date of the booking
+	 * @return from date of the booking
 	 */
-	public void setBookingDates(LocalDate from, LocalDate to) {
-		try {
-			if (from.isAfter(to) || to.equals(from) || from.isBefore(LocalDate.now())) {
-				throw new FailedInitializationException("Invalid dates given!");
-			}
-			this.from = from;
-			this.to = to;
-		} catch (NullPointerException npe) {
-			throw new FailedInitializationException("Date parameters are null!");
-		}
+	public LocalDate getFrom(){
+		return from;
 	}
+
+	/**
+	 * Getter for to date of the booking
+	 * @return to date of the booking
+	 */
+	public LocalDate getTo(){
+		return to;
+	}
+
+	/**
+	 * Getter for room id of the booking
+	 * @return room id of the booking
+	 */
+	public int getRoomId() {
+		return roomId;
+	}
+
+	/**
+	 * Returns the amount of people for which the room is
+	 * @return number of people
+	 */
+	public int getNumberOfPeople(){
+		return numberOfPeople;
+	}
+
+	/**
+	 * Getter for guest id of the booking
+	 * @return room id of the booking
+	 */
+	public int getGuestId() {
+		return guestId;
+	}
+
 }
