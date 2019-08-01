@@ -24,14 +24,14 @@ public class RoomService {
 		return roomRepository.findAll();
 	}
 
-	public Room saveRoom(Room room) {
-		roomRepository.save(room);
-		return roomRepository.findById(room.getRoomId());
-	}
-
-	public boolean existsById(int id) {
-		return roomRepository.existsById(id);
-	}
+    public Room saveRoom(Room room) {
+        roomRepository.save(room);
+        return roomRepository.findById(room.getRoomId());
+    }
+    
+    public boolean existsById(int id) {
+        return roomRepository.existsById(id);
+    }
 
 	public void saveRooms(Room... rooms) {
 		roomRepository.saveAll(rooms);

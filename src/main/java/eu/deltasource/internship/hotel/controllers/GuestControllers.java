@@ -12,6 +12,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("guests")
+
 public class GuestControllers {
 	GuestRepository guestRepository = new GuestRepository();
 	GuestService guestService = new GuestService(guestRepository);
