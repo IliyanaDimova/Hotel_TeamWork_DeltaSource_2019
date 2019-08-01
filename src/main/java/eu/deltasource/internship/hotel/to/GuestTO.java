@@ -12,11 +12,13 @@ public class GuestTO {
 	private String lastName;
 
 	/**
-	 * Constructor - initializes all fields
+	 * Constructor - initializes all fields without any validation (validation is done when you use the
+	 * transfer object to generate Guest with ID)
 	 */
 	public GuestTO(String firstName, String lastName, Gender gender) {
 		this.gender = gender;
-		initializeNamesAndNullChecks(firstName, lastName);
+		this.firstName = firstName;
+		this.lastName = lastName;;
 	}
 
 	public Gender getGender() {
@@ -29,23 +31,5 @@ public class GuestTO {
 
 	public String getLastName() {
 		return lastName;
-	}
-
-	/**
-	 * Sets first and last name
-	 * Throws Exception if null String for names
-	 *
-	 * @param firstName
-	 * @param lastName
-	 */
-	private void initializeNamesAndNullChecks(String firstName, String lastName) {
-		if (firstName == null || lastName == null ||
-			firstName.isEmpty() || lastName.isEmpty()) {
-			throw new FailedInitializationException("Guest name is invalid");
-		} else if (gender == null) {
-			throw new FailedInitializationException("Gender is not set");
-		}
-		this.firstName = firstName;
-		this.lastName = lastName;
 	}
 }

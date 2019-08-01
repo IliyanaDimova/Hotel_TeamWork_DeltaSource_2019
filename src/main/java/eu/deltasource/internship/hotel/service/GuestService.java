@@ -61,12 +61,10 @@ public class GuestService {
 	 * Throws Exception if Guest with this ID doesn't exist!
 	 *
 	 * @param guestId   the ID of the guest we want to update
-	 * @param firstName to be updated
-	 * @param lastName  to be updated
-	 * @param gender    to be updated
+	 * @param newGuestData transfer object for Guest without ID
 	 */
-	public void updateGuestById(int guestId, String firstName, String lastName, Gender gender) {
-		Guest updatedGuest = new Guest(guestId, firstName, lastName, gender);
+	public void updateGuestById(int guestId, GuestTO newGuestData) {
+		Guest updatedGuest = new Guest(guestId, newGuestData.getFirstName(), newGuestData.getLastName(), newGuestData.getGender());
 		guestRepository.updateGuest(updatedGuest);
 	}
 
