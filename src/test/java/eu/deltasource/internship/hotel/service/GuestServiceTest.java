@@ -78,7 +78,7 @@ public class GuestServiceTest {
 		String lastName = "Apdelgafar";
 		Gender gender = Gender.MALE;
 		//when
-		gs.updateGuestById(2, firstName, lastName, gender);
+		gs.updateGuestById(2, new GuestTO(firstName, lastName, gender));
 		//then
 		assertEquals(firstName, gs.returnGuestById(2).getFirstName());
 		assertEquals(lastName, gs.returnGuestById(2).getLastName());

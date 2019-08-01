@@ -12,7 +12,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@RequestMapping("guests")
+@RequestMapping("/guests")
 public class GuestControllers {
 	GuestRepository guestRepository = new GuestRepository();
 	GuestService guestService = new GuestService(guestRepository);
@@ -46,6 +46,6 @@ public class GuestControllers {
 	@ResponseBody
 	public void returnUpdateGuestById(@PathVariable int id, @PathVariable String firstName,
 									  @PathVariable String lastName, @PathVariable Gender gender) {
-		guestService.updateGuestById(id, firstName, lastName, gender);
+		guestService.updateGuestById(id, new GuestTO(firstName, lastName, gender));
 	}
 }
