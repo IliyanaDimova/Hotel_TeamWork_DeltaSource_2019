@@ -161,8 +161,6 @@ public class BookingServiceTests {
             bookingService.updateBooking(1, LocalDate.now()
                     .plusDays(2), LocalDate.now().plusDays(8));
         });
-
     }
-
 
 }
