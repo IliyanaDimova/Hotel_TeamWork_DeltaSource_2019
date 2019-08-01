@@ -3,6 +3,7 @@ package eu.deltasource.internship.hotel.service;
 import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
+import eu.deltasource.internship.hotel.to.BookingTO;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
@@ -33,51 +34,22 @@ public class BookingService {
 	 * Adds a new entry to the repository, throws invalid param exception, if the booking is null or if the
 	 * booking has a from value which is greater than the to value
 	 *
-	 * @param bookingId      id of the booking
-	 * @param guestId        id of the guest
-	 * @param roomId         id of the room
-	 * @param numberOfPeople the amount of people
-	 * @param from           start date of the booking
-	 * @param to             end date of the booking
+	 * @param bookingId 	id of the booking
+	 * @param bookingTO 	id of the guest
 	 */
-	public void createBooking(int bookingId, int guestId, int roomId, int numberOfPeople, LocalDate from,
-							  LocalDate to) {
+	public void createBooking(int bookingId, BookingTO bookingTO) {
 
-		if (from == null) {
-			throw new InvalidParameterException("Date cannot be null.");
-		}
-		if (to == null) {
-			throw new InvalidParameterException("Date cannot be null.");
-		}
-		if (to.isBefore(from)) {
-			throw new InvalidParameterException("Booking has invalid date values.");
-		}
+		validateBooking(bookingTO);
 
 		if (bookingRepository.existsById(bookingId)) {
 			throw new InvalidParameterException("Booking with this ID already exists.");
 		}
 
-		if (!guestService.existsById(guestId)) {
-			throw new InvalidParameterException("Guest with this ID does not exist.");
-		}
+		Room room = roomService.getRoomById(bookingTO.getRoomId());
 
-		if (!roomService.existsById(roomId)) {
-			throw new InvalidParameterException("Room does not exist.");
-		}
+		//todo include in validate dates
 
-		Room room = roomService.getRoomById(roomId);
-
-		if (!isSpaceEnough(numberOfPeople, room)) {
-			throw new InvalidParameterException("Not enough space in room");
-		}
-
-		for (Booking booking : bookingRepository.findAll()) {
-			if (checkForOverlappingDates(from, to, booking) && booking.getRoomId() == roomId) {
-				throw new InvalidParameterException("Booking overlaps with another one");
-			}
-		}
-
-		bookingRepository.save(new Booking(bookingId, guestId, roomId, numberOfPeople, from, to));
+		bookingRepository.save(BookingTOtoModdel(bookingId, bookingTO));
 	}
 
 	/**
@@ -140,15 +112,59 @@ public class BookingService {
 		return !(book.getFrom().isAfter(to) || book.getTo().isBefore(from) || book.getTo().equals(from));
 	}
 
+	private void validateBooking(BookingTO booking) {
+		validateDates(booking.getFrom(), booking.getTo());
+
+
+		if (!guestService.existsById(booking.getGuestId())) {
+			throw new InvalidParameterException("Guest with this ID does not exist.");
+		}
+
+		if (!roomService.existsById(booking.getGuestId())) {
+			throw new InvalidParameterException("Room does not exist.");
+		}
+
+	}
+
+
 	private boolean isSpaceEnough(int peopleCount, Room room) {
 		return room.getRoomCapacity() >= peopleCount;
 	}
 
-	private void validateDates(LocalDate... dates) {
-		for (LocalDate date : dates) {
-			if (date == null) {
-				throw new InvalidParameterException("Date cannot be null");
+	private void validateDates(LocalDate from, LocalDate to) {
+		if(from == null) {
+			throw new InvalidParameterException("From date cannot be null");
+		}
+		else if(to == null) {
+			throw new InvalidParameterException("To date cannot be null");
+		}
+		if(to.isBefore(from)){
+			throw new InvalidParameterException("To date cannot be after from date.");
+		}
+
+	}
+
+	private void validateRoom(BookingTO booking){
+		if(!roomService.existsById(booking.getRoomId())){
+			throw new InvalidParameterException("Room does not exist.");
+		}
+
+		if (!isSpaceEnough(booking.getNumberOfPeople(), roomService.getRoomById(booking.getRoomId()))) {
+			throw new InvalidParameterException("Not enough space in room");
+		}
+
+		for (Booking current : bookingRepository.findAll()) {
+			if (checkForOverlappingDates(booking.getFrom(), booking.getTo(), current) && current.getRoomId() != booking.getRoomId()) {
+				throw new InvalidParameterException("Booking overlaps with another one");
 			}
 		}
 	}
+
+	private Booking BookingTOtoModdel(int id, BookingTO booking){
+		Booking book = new Booking(id, booking.getGuestId(), booking.getGuestId(), booking.getNumberOfPeople(),
+			booking.getFrom(), booking.getTo());
+		return book;
+	}
+
+
 }
