@@ -21,7 +21,8 @@ public class RoomTO {
 	 */
 	public RoomTO(Set<AbstractCommodity> commodities) {
 		this.commodities = new HashSet<>();
-		updateCommodities(commodities);
+		this.commodities.addAll(commodities);
+		roomCapacitySetter();
 	}
 
 	public int getRoomCapacity() {
@@ -46,17 +47,4 @@ public class RoomTO {
 			throw new FailedInitializationException("Room can not be empty");
 		}
 	}
-
-	/**
-	 * Updates room's commodity set
-	 */
-	public void updateCommodities(Set<AbstractCommodity> commodities) {
-		if (commodities == null || commodities.isEmpty()) {
-			throw new FailedInitializationException("Room has no commodities!");
-		}
-		this.commodities.clear();
-		this.commodities.addAll(commodities);
-		roomCapacitySetter();
-	}
-
 }
