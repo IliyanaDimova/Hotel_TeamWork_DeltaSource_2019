@@ -37,31 +37,11 @@
 			<artifactId>spring-context</artifactId>
 			<version>5.1.8.RELEASE</version>
 		</dependency>
-		<
-		<
-		<
-		<
-		<
-		<
-		< HEAD
 
-		=======
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
-		>>>>>>> Added two OK controllers in guestcontrollers
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.1.8.RELEASE</version>
 		</dependency>
-		<
-		<
-		<
-		<
-		<
-		<
-		< HEAD
-
-		=======
-		>>>>>>> Added two OK controllers in guestcontrollers
 	</dependencies>
 </project>
