@@ -5,6 +5,7 @@ import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
+import eu.deltasource.internship.hotel.to.GuestTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,9 +18,9 @@ public class GuestServiceTest {
 
 	@BeforeEach
 	public void beforeEach() {
-		gs.createGuest("Pesho", "Peshov", Gender.MALE);
-		gs.createGuest("Penka", "Peshova", Gender.FEMALE);
-		gs.createGuest("Ganka", "Petrova", Gender.FEMALE);
+		gs.createGuest(new GuestTO("Pesho", "Peshov", Gender.MALE));
+		gs.createGuest(new GuestTO("Penka", "Peshova", Gender.FEMALE));
+		gs.createGuest(new GuestTO("Ganka", "Petrova", Gender.FEMALE));
 	}
 
 	@Test

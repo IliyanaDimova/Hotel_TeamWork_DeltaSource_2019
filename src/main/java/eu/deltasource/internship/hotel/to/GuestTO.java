@@ -14,7 +14,7 @@ public class GuestTO {
 	/**
 	 * Constructor - initializes all fields
 	 */
-	public GuestTO(int guestId, String firstName, String lastName, Gender gender) {
+	public GuestTO(String firstName, String lastName, Gender gender) {
 		this.gender = gender;
 		initializeNamesAndNullChecks(firstName, lastName);
 	}

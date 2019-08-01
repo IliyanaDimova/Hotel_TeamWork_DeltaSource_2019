@@ -4,6 +4,7 @@ import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.service.GuestService;
+import eu.deltasource.internship.hotel.to.GuestTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class GuestControllers {
 	@ResponseBody
 	public void returnCreateGuest(@PathVariable String firstName, @PathVariable String lastName,
 								  @PathVariable Gender gender) {
-		guestService.createGuest(firstName, lastName, gender);
+		guestService.createGuest(new GuestTO(firstName, lastName, gender));
 	}
 
 	@RequestMapping(value = "/{id}", method = GET)

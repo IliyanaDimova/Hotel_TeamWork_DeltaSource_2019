@@ -3,6 +3,7 @@ package eu.deltasource.internship.hotel.service;
 import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
+import eu.deltasource.internship.hotel.to.GuestTO;
 
 import java.util.List;
 
@@ -30,12 +31,10 @@ public class GuestService {
 	/**
 	 * Adds a new guest to GuestRepository
 	 *
-	 * @param firstName
-	 * @param lastName
-	 * @param gender
+	 * @param guest transfer object for guest
 	 */
-	public void createGuest(String firstName, String lastName, Gender gender) {
-		Guest newGuest = new Guest(0, firstName, lastName, gender);
+	public void createGuest(GuestTO guest) {
+		Guest newGuest = new Guest(0, guest.getLastName(), guest.getFirstName(), guest.getGender());
 		guestRepository.save(newGuest);
 	}
 
