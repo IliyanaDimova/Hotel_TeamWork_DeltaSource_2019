@@ -24,7 +24,8 @@ public class GuestControllers {
 
 	@PostMapping
 	@ResponseBody
-	public void returnCreateGuest(@PathVariable String firstName, @PathVariable String lastName, @PathVariable Gender gender) {
+	public void returnCreateGuest(@PathVariable String firstName, @PathVariable String lastName,
+								  @PathVariable Gender gender) {
 		guestService.createGuest(firstName, lastName, gender);
 	}
 
@@ -42,7 +43,8 @@ public class GuestControllers {
 
 	@RequestMapping(value = "/{id}", method = POST)
 	@ResponseBody
-	public void returnUpdateGuestById(@PathVariable int id, @PathVariable String firstName, @PathVariable String lastName, @PathVariable Gender gender) {
+	public void returnUpdateGuestById(@PathVariable int id, @PathVariable String firstName,
+									  @PathVariable String lastName, @PathVariable Gender gender) {
 		guestService.updateGuestById(id, firstName, lastName, gender);
 	}
 }

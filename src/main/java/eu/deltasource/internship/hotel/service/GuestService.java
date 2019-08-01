@@ -13,13 +13,9 @@ public class GuestService {
 
 	private final GuestRepository guestRepository;
 
-   public GuestService(GuestRepository guestRepository) {
-       this.guestRepository = guestRepository;
-   }
-
-   public boolean existsById(int id) {
-       return guestRepository.existsById(id);
-   }
+	public GuestService(GuestRepository guestRepository) {
+		this.guestRepository = guestRepository;
+	}
 
 	/**
 	 * Checks if guest by given ID exists

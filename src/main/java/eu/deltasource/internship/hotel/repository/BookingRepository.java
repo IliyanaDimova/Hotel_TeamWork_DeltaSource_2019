@@ -151,8 +151,8 @@ public class BookingRepository {
 		if (count() == 0) {
 			return count() + 1;
 		}
-
 		return repository.get(count() - 1).getBookingId() + 1;
 	}
+
 }
 
