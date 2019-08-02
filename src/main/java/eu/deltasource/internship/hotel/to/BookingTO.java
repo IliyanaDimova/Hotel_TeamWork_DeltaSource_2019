@@ -9,6 +9,7 @@ import java.time.LocalDate;
  */
 public class BookingTO {
 
+	private int bookingId;
 	private int guestId;
 	private int roomId;
 
@@ -26,7 +27,8 @@ public class BookingTO {
 	 * @param from
 	 * @param to
 	 */
-	public BookingTO(int guestId, int roomId, int numberOfPeople, LocalDate from, LocalDate to) {
+	public BookingTO(int bookingId,int guestId, int roomId, int numberOfPeople, LocalDate from, LocalDate to) {
+		this.bookingId = bookingId;
 		this.guestId = guestId;
 		this.roomId = roomId;
 		this.numberOfPeople = numberOfPeople;
@@ -38,10 +40,20 @@ public class BookingTO {
 	 * @param booking
 	 */
 	public BookingTO(Booking booking) {
+		this.bookingId = booking.getBookingId();
 		this.guestId = booking.getGuestId();
 		this.roomId = booking.getRoomId();
 		this.numberOfPeople = booking.getNumberOfPeople();
 		this.from = booking.getFrom();
+	}
+
+	/**
+	 * Getter for booking ID field
+	 * @return int - ID of the booking
+	 */
+
+	public int getBookingId() {
+		return bookingId;
 	}
 
 	/**
