@@ -1,19 +1,22 @@
 package eu.deltasource.internship.hotel.service;
 
-import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.to.GuestTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Taner Ilyazov - Delta Source Bulgaria on 2019-07-28.
  */
+@Service
 public class GuestService {
 
 	private final GuestRepository guestRepository;
 
+	@Autowired
 	public GuestService(GuestRepository guestRepository) {
 		this.guestRepository = guestRepository;
 	}
