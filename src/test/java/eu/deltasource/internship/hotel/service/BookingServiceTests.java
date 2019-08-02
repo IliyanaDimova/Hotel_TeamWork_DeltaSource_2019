@@ -1,17 +1,13 @@
 package eu.deltasource.internship.hotel.service;
 
-import eu.deltasource.internship.hotel.domain.Gender;
-import eu.deltasource.internship.hotel.domain.Guest;
-import eu.deltasource.internship.hotel.domain.Hotel;
-import eu.deltasource.internship.hotel.domain.Room;
+import eu.deltasource.internship.hotel.domain.*;
 import eu.deltasource.internship.hotel.domain.commodity.*;
-import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.security.InvalidParameterException;
@@ -92,34 +88,43 @@ public class BookingServiceTests {
 		setUp();
 		// when
 		//then
+		LocalDate today = LocalDate.now();
+		LocalDate tomorrow = LocalDate.now().plusDays(1);
+		LocalDate yesterday = LocalDate.now().minusDays(1);
+
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
-			bookingService.createBooking(1, new BookingTO(1, 1, 1, null, null));
+			bookingService.createBooking(null);
 		});
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
-			bookingService.createBooking(1,
-				new BookingTO(1, 1, 1, LocalDate.now(), null));
+			bookingService.createBooking( new BookingTO(1, 1, 1, 1, null, null));
 		});
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
-			bookingService.createBooking(1,
-				new BookingTO(1, 1, 1, LocalDate.now(), LocalDate.now().minusDays(1)));
+			bookingService.createBooking(
+				new BookingTO(1, 1, 1, 1, today, null));
 		});
-		Assertions.assertThrows(ItemNotFoundException.class, () -> {
-			bookingService.createBooking(1,
-				new BookingTO(1, -1, 1, LocalDate.now(), LocalDate.now().plusDays(1)));
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
+			bookingService.createBooking(
+				new BookingTO(1,1, 1, 1,today, yesterday));
+		});
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
+			bookingService.createBooking(
+				new BookingTO(1,1, -1, 1, today, tomorrow));
 		});
 	}
 
 	@Test
-	public void createBooking_createsBooking_whenCorrectParameters() {
+	public void createBooking_throwsException_whenCreatingDuplicateBookings() {
 		//given
 		setUp();
+		LocalDate today = LocalDate.now();
+		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		//when
-		bookingService.createBooking(1, new BookingTO(1, 1, 1, LocalDate.now(),
-			LocalDate.now().plusDays(1)));
+		bookingService.createBooking( new BookingTO(1,1, 1, 1, today,
+			tomorrow));
 		//then
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
-			bookingService.createBooking(1, new BookingTO(1, 1, 1, LocalDate.now(),
-				LocalDate.now().plusDays(1)));
+			bookingService.createBooking( new BookingTO(1,1, 1, 1, today,
+				tomorrow));
 		});
 	}
 
@@ -127,40 +132,61 @@ public class BookingServiceTests {
 	public void getAllBookings_returnsBooking() {
 		//given
 		setUp();
+		LocalDate today = LocalDate.now();
+		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		//when
-		bookingService.createBooking(1, new BookingTO(1, 1, 1, LocalDate.now(),
-			LocalDate.now().plusDays(1)));
+		BookingTO first = new BookingTO(1,1, 1, 1, today,
+			tomorrow);
+		BookingTO second = new BookingTO(2,1, 4, 2, today,
+			tomorrow);
+		bookingService.createBooking(first);
+		bookingService.createBooking(second);
 		//then
-		Assertions.assertEquals(bookingService.getAllBookings().size(), 1);
+		Assertions.assertEquals(2, bookingService.getAllBookings().size());
+		Assertions.assertTrue(isBookingTOequalToBooking(first, bookingService.getBookingById(1)));
+		Assertions.assertTrue(isBookingTOequalToBooking(second, bookingService.getBookingById(2)));
 	}
 
 	@Test
 	public void updateBooking_updatesBooking_singleBooking() {
 		//given
 		setUp();
-		bookingService.createBooking(1, new BookingTO(1, 1, 1, LocalDate.now(),
-			LocalDate.now().plusDays(1)));
+		LocalDate today = LocalDate.now();
+		LocalDate tomorrow = LocalDate.now().plusDays(1);
+		LocalDate todayPlusThree = LocalDate.now().plusDays(3);
+		bookingService.createBooking( new BookingTO(1,1, 1, 1, today,
+			tomorrow));
 		//when
-		bookingService.updateBooking(1, LocalDate.now().plusDays(2), LocalDate.now().plusDays(3));
+		bookingService.updateBooking(1, today, todayPlusThree);
 		//then
-		Assertions.assertEquals(LocalDate.now().plusDays(2), bookingService.getBookingById(1).getFrom());
-		Assertions.assertEquals(LocalDate.now().plusDays(3), bookingService.getBookingById(1).getTo());
+		Assertions.assertEquals(today, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(todayPlusThree, bookingService.getBookingById(1).getTo());
 	}
 
 	@Test
 	public void updateBooking_throws_whenOverlapping() {
 		//given
 		setUp();
-		bookingService.createBooking(1, new BookingTO(1, 1, 1, LocalDate.now(),
-			LocalDate.now().plusDays(1)));
-		bookingService.createBooking(2, new BookingTO(1, 1, 1, LocalDate.now().plusDays(5),
-			LocalDate.now().plusDays(7)));
+		LocalDate today = LocalDate.now();
+		LocalDate tomorrow = LocalDate.now().plusDays(1);
+		LocalDate todayPlusFive = LocalDate.now().plusDays(5);
+		LocalDate todayPlusSix = LocalDate.now().plusDays(6);
+		LocalDate todayPlusSeven = LocalDate.now().plusDays(7);
+		bookingService.createBooking( new BookingTO(1,1, 1, 1,today,tomorrow));
+		bookingService.createBooking(new BookingTO(2, 1, 1, 1, todayPlusFive, todayPlusSeven));
 		//when
 		//then
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
-			bookingService.updateBooking(1, LocalDate.now()
-				.plusDays(2), LocalDate.now().plusDays(8));
+			bookingService.updateBooking(1, tomorrow, todayPlusSix);
 		});
+	}
+
+	private boolean isBookingTOequalToBooking(BookingTO bookingTO, Booking booking){
+		return bookingTO.getGuestId() == booking.getGuestId() &&
+			bookingTO.getRoomId()== booking.getRoomId() &&
+			bookingTO.getTo() == booking.getTo() &&
+			bookingTO.getFrom() == booking.getFrom() &&
+			bookingTO.getNumberOfPeople() == booking.getNumberOfPeople();
 	}
 
 }
