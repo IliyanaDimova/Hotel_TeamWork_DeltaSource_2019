@@ -9,18 +9,18 @@ import eu.deltasource.internship.hotel.to.GuestTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GuestServiceTest {
-	GuestService gs = new GuestService(new GuestRepository());
+	GuestService guestService = new GuestService(new GuestRepository());
 
 	@BeforeEach
 	public void beforeEach() {
-		gs.createGuest(new GuestTO("Pesho", "Peshov", Gender.MALE));
-		gs.createGuest(new GuestTO("Penka", "Peshova", Gender.FEMALE));
-		gs.createGuest(new GuestTO("Ganka", "Petrova", Gender.FEMALE));
+		guestService.createGuest(new GuestTO("Pesho", "Peshov", Gender.MALE));
+		guestService.createGuest(new GuestTO("Penka", "Peshova", Gender.FEMALE));
+		guestService.createGuest(new GuestTO("Ganka", "Petrova", Gender.FEMALE));
 	}
 
 	@Test
@@ -28,8 +28,8 @@ public class GuestServiceTest {
 		//given
 		//when
 		//then
-		assertEquals(true, gs.existsById(2));
-		assertFalse(gs.existsById(4));
+		assertEquals(true, guestService.existsById(2));
+		assertFalse(guestService.existsById(4));
 	}
 
 	private void assertTrue(int size) {
@@ -40,7 +40,7 @@ public class GuestServiceTest {
 		//given
 		//when
 		//then
-		assertEquals(3, gs.returnAllGuests().size());
+		assertEquals(3, guestService.returnAllGuests().size());
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class GuestServiceTest {
 		Guest guest2 = new Guest(2, "Penka", "Peshova", Gender.FEMALE);
 		//when
 		//then
-		assertEquals(guest2, gs.returnAllGuests().get(1));
+		assertEquals(guest2, guestService.returnAllGuests().get(1));
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class GuestServiceTest {
 		Guest guest2 = new Guest(2, "Penka", "Peshova", Gender.FEMALE);
 		//when
 		//then
-		assertEquals(guest2, gs.returnGuestById(2));
+		assertEquals(guest2, guestService.returnGuestById(2));
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class GuestServiceTest {
 		//when
 		//then
 		assertThrows(ItemNotFoundException.class, () -> {
-			gs.returnGuestById(4);
+			guestService.returnGuestById(4);
 		});
 	}
 
@@ -78,19 +78,19 @@ public class GuestServiceTest {
 		String lastName = "Apdelgafar";
 		Gender gender = Gender.MALE;
 		//when
-		gs.updateGuestById(2, new GuestTO(firstName, lastName, gender));
+		guestService.updateGuestById(2, new GuestTO(firstName, lastName, gender));
 		//then
-		assertEquals(firstName, gs.returnGuestById(2).getFirstName());
-		assertEquals(lastName, gs.returnGuestById(2).getLastName());
-		assertEquals(gender, gs.returnGuestById(2).getGender());
+		assertEquals(firstName, guestService.returnGuestById(2).getFirstName());
+		assertEquals(lastName, guestService.returnGuestById(2).getLastName());
+		assertEquals(gender, guestService.returnGuestById(2).getGender());
 	}
 
 	@Test
 	public void testRemoveGuestById() {
 		//given
 		//when
-		gs.removeGuestById(1);
+		guestService.removeGuestById(1);
 		//then
-		assertEquals(2, gs.returnAllGuests().size());
+		assertEquals(2, guestService.returnAllGuests().size());
 	}
 }
