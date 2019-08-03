@@ -7,8 +7,8 @@ import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
@@ -96,7 +96,7 @@ public class BookingServiceTests {
 			bookingService.createBooking(null);
 		});
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
-			bookingService.createBooking( new BookingTO(1, 1, 1, 1, null, null));
+			bookingService.createBooking(new BookingTO(1, 1, 1, 1, null, null));
 		});
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
 			bookingService.createBooking(
@@ -104,11 +104,11 @@ public class BookingServiceTests {
 		});
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
 			bookingService.createBooking(
-				new BookingTO(1,1, 1, 1,today, yesterday));
+				new BookingTO(1, 1, 1, 1, today, yesterday));
 		});
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
 			bookingService.createBooking(
-				new BookingTO(1,1, -1, 1, today, tomorrow));
+				new BookingTO(1, 1, -1, 1, today, tomorrow));
 		});
 	}
 
@@ -119,11 +119,11 @@ public class BookingServiceTests {
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		//when
-		bookingService.createBooking( new BookingTO(1,1, 1, 1, today,
+		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
 			tomorrow));
 		//then
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
-			bookingService.createBooking( new BookingTO(1,1, 1, 1, today,
+			bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
 				tomorrow));
 		});
 	}
@@ -135,9 +135,9 @@ public class BookingServiceTests {
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		//when
-		BookingTO first = new BookingTO(1,1, 1, 1, today,
+		BookingTO first = new BookingTO(1, 1, 1, 1, today,
 			tomorrow);
-		BookingTO second = new BookingTO(2,1, 4, 2, today,
+		BookingTO second = new BookingTO(2, 1, 4, 2, today,
 			tomorrow);
 		bookingService.createBooking(first);
 		bookingService.createBooking(second);
@@ -154,7 +154,7 @@ public class BookingServiceTests {
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		LocalDate todayPlusThree = LocalDate.now().plusDays(3);
-		bookingService.createBooking( new BookingTO(1,1, 1, 1, today,
+		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
 			tomorrow));
 		//when
 		bookingService.updateBooking(1, today, todayPlusThree);
@@ -172,7 +172,7 @@ public class BookingServiceTests {
 		LocalDate todayPlusFive = LocalDate.now().plusDays(5);
 		LocalDate todayPlusSix = LocalDate.now().plusDays(6);
 		LocalDate todayPlusSeven = LocalDate.now().plusDays(7);
-		bookingService.createBooking( new BookingTO(1,1, 1, 1,today,tomorrow));
+		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today, tomorrow));
 		bookingService.createBooking(new BookingTO(2, 1, 1, 1, todayPlusFive, todayPlusSeven));
 		//when
 		//then
@@ -181,9 +181,9 @@ public class BookingServiceTests {
 		});
 	}
 
-	private boolean isBookingTOequalToBooking(BookingTO bookingTO, Booking booking){
+	private boolean isBookingTOequalToBooking(BookingTO bookingTO, Booking booking) {
 		return bookingTO.getGuestId() == booking.getGuestId() &&
-			bookingTO.getRoomId()== booking.getRoomId() &&
+			bookingTO.getRoomId() == booking.getRoomId() &&
 			bookingTO.getTo() == booking.getTo() &&
 			bookingTO.getFrom() == booking.getFrom() &&
 			bookingTO.getNumberOfPeople() == booking.getNumberOfPeople();

@@ -27,7 +27,7 @@ public class BookingTO {
 	 * @param from
 	 * @param to
 	 */
-	public BookingTO(int bookingId,int guestId, int roomId, int numberOfPeople, LocalDate from, LocalDate to) {
+	public BookingTO(int bookingId, int guestId, int roomId, int numberOfPeople, LocalDate from, LocalDate to) {
 		this.bookingId = bookingId;
 		this.guestId = guestId;
 		this.roomId = roomId;
@@ -49,6 +49,7 @@ public class BookingTO {
 
 	/**
 	 * Getter for booking ID field
+	 *
 	 * @return int - ID of the booking
 	 */
 
@@ -58,22 +59,25 @@ public class BookingTO {
 
 	/**
 	 * Getter for from date of the booking
+	 *
 	 * @return from date of the booking
 	 */
-	public LocalDate getFrom(){
+	public LocalDate getFrom() {
 		return from;
 	}
 
 	/**
 	 * Getter for to date of the booking
+	 *
 	 * @return to date of the booking
 	 */
-	public LocalDate getTo(){
+	public LocalDate getTo() {
 		return to;
 	}
 
 	/**
 	 * Getter for room id of the booking
+	 *
 	 * @return room id of the booking
 	 */
 	public int getRoomId() {
@@ -82,14 +86,16 @@ public class BookingTO {
 
 	/**
 	 * Returns the amount of people for which the room is
+	 *
 	 * @return number of people
 	 */
-	public int getNumberOfPeople(){
+	public int getNumberOfPeople() {
 		return numberOfPeople;
 	}
 
 	/**
 	 * Getter for guest id of the booking
+	 *
 	 * @return room id of the booking
 	 */
 	public int getGuestId() {

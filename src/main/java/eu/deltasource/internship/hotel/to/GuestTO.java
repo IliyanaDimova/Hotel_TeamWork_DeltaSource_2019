@@ -17,7 +17,8 @@ public class GuestTO {
 	public GuestTO(String firstName, String lastName, Gender gender) {
 		this.gender = gender;
 		this.firstName = firstName;
-		this.lastName = lastName;;
+		this.lastName = lastName;
+		;
 	}
 
 	public Gender getGender() {

@@ -32,7 +32,7 @@ public class BookingService {
 	 * Adds a new entry to the repository, throws invalid param exception, if the booking is null or if the
 	 * booking has a from value which is greater than the to value
 	 *
-	 * @param bookingTO 	id of the guest
+	 * @param bookingTO id of the guest
 	 */
 	public void createBooking(BookingTO bookingTO) {
 
@@ -108,7 +108,7 @@ public class BookingService {
 		book.setBookingDates(from, to);
 	}
 
-	private void overlapChecker(BookingTO booking){
+	private void overlapChecker(BookingTO booking) {
 		for (Booking current : bookingRepository.findAll()) {
 			if (current.getRoomId() == booking.getRoomId() && isOverlapping(booking.getFrom(),
 				booking.getTo(), current) && booking.getBookingId() == current.getBookingId()) {
@@ -122,15 +122,15 @@ public class BookingService {
 	}
 
 	private void validateBooking(BookingTO booking) {
-		if(booking == null){
+		if (booking == null) {
 			throw new InvalidParameterException("Booking cannot be null");
-		} else if(booking.getFrom() == null) {
+		} else if (booking.getFrom() == null) {
 			throw new InvalidParameterException("From date cannot be null");
-		} else if(booking.getTo() == null) {
+		} else if (booking.getTo() == null) {
 			throw new InvalidParameterException("To date cannot be null");
 		}
 
-		if(booking.getTo().isBefore(booking.getFrom())){
+		if (booking.getTo().isBefore(booking.getFrom())) {
 			throw new InvalidParameterException("To date cannot be after from date.");
 		}
 
@@ -150,11 +150,13 @@ public class BookingService {
 	}
 
 	/**
-	 * Validates the room requested by the booking. Checks if the room exists, checks if the space in the room is enough
+	 * Validates the room requested by the booking. Checks if the room exists, checks if the space in the room is
+	 * enough
+	 *
 	 * @param booking
 	 */
-	private void validateRoom(BookingTO booking){
-		if(!roomService.existsById(booking.getRoomId())){
+	private void validateRoom(BookingTO booking) {
+		if (!roomService.existsById(booking.getRoomId())) {
 			throw new InvalidParameterException("Room does not exist.");
 		}
 
@@ -165,13 +167,13 @@ public class BookingService {
 
 	}
 
-	private void validateBookingID(int bookingID){
-		if(!bookingRepository.existsById(bookingID)){
+	private void validateBookingID(int bookingID) {
+		if (!bookingRepository.existsById(bookingID)) {
 			throw new InvalidParameterException("Booking does not exist.");
 		}
 	}
 
-	private Booking covertBookingTOtoBookingModel(BookingTO bookingTO){
+	private Booking covertBookingTOtoBookingModel(BookingTO bookingTO) {
 		Booking book = new Booking(bookingTO.getBookingId(), bookingTO.getGuestId(), bookingTO.getRoomId(),
 			bookingTO.getNumberOfPeople(),
 			bookingTO.getFrom(), bookingTO.getTo());
