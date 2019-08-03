@@ -4,6 +4,8 @@ import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
@@ -12,6 +14,7 @@ import java.util.List;
 /**
  * Created by Taner Ilyazov - Delta Source Bulgaria on 2019-07-28.
  */
+@Service
 public class BookingService {
 
 	private final BookingRepository bookingRepository;
@@ -20,6 +23,7 @@ public class BookingService {
 
 	private final GuestService guestService;
 
+	@Autowired
 	public BookingService(BookingRepository bookingRepository, RoomService roomService, GuestService guestService) {
 		this.bookingRepository = bookingRepository;
 		this.roomService = roomService;
