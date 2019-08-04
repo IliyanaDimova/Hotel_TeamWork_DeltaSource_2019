@@ -2,6 +2,8 @@ package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.*;
 import eu.deltasource.internship.hotel.domain.commodity.*;
+import eu.deltasource.internship.hotel.exception.InvalidBookingException;
+import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
@@ -104,11 +106,15 @@ public class BookingServiceTests {
 		});
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
 			bookingService.createBooking(
-				new BookingTO(1, 1, 1, 1, today, yesterday));
+				new BookingTO(2, 1, 1, 1, today, yesterday));
 		});
-		Assertions.assertThrows(InvalidParameterException.class, () -> {
+		Assertions.assertThrows(ItemNotFoundException.class, () -> {
 			bookingService.createBooking(
-				new BookingTO(1, 1, -1, 1, today, tomorrow));
+				new BookingTO(3, 1, -1, 1, today, tomorrow));
+		});
+		Assertions.assertThrows(ItemNotFoundException.class, () -> {
+			bookingService.createBooking(
+				new BookingTO(4, -1, 1, 1, today, tomorrow));
 		});
 	}
 
@@ -122,11 +128,13 @@ public class BookingServiceTests {
 		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
 			tomorrow));
 		//then
-		Assertions.assertThrows(InvalidParameterException.class, () -> {
+		Assertions.assertThrows(InvalidBookingException.class, () -> {
 			bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
 				tomorrow));
 		});
 	}
+
+
 
 	@Test
 	public void getAllBookings_returnsBooking() {
@@ -146,6 +154,25 @@ public class BookingServiceTests {
 		Assertions.assertTrue(isBookingTOequalToBooking(first, bookingService.getBookingById(1)));
 		Assertions.assertTrue(isBookingTOequalToBooking(second, bookingService.getBookingById(2)));
 	}
+
+	@Test
+	public void createBooking_throws_whenDatesOverlap(){
+		//given
+		LocalDate dayOne = LocalDate.now();
+		LocalDate dayTwo = LocalDate.now().plusDays(1);
+		LocalDate dayThree = LocalDate.now().plusDays(2);
+		LocalDate dateFour = LocalDate.now().plusDays(3);
+		//when
+		bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayOne,
+			dayThree));
+		//then
+		Assertions.assertThrows(InvalidBookingException.class, () -> {
+			bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayTwo,
+				dateFour));
+		});
+
+	}
+
 
 	@Test
 	public void updateBooking_updatesBooking_singleBooking() {
