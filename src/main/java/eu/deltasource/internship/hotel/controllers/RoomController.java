@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.List;
+
 //todo add rest controller because there is not beans
 @RequestMapping("/rooms")
 public class RoomController {
