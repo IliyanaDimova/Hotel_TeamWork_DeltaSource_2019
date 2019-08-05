@@ -2,8 +2,10 @@ package eu.deltasource.internship.hotel.controllers;
 
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.service.RoomService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 //todo add rest controller because there is not beans
@@ -21,12 +23,12 @@ public class RoomController {
 		return roomService.findRooms();
 	}
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	Room addNewRoom(@RequestBody Room room) {
 		return roomService.saveRoom(room);
 	}
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	void addNewRooms(@RequestBody Room... rooms) {
 		roomService.saveRooms(rooms);
 	}
@@ -35,5 +37,6 @@ public class RoomController {
 	Room getRoomById(@PathVariable int id) {
 		return roomService.getRoomById(id);
 	}
+
 
 }
