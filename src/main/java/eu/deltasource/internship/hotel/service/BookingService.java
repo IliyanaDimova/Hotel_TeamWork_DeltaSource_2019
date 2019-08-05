@@ -150,10 +150,6 @@ public class BookingService {
 			throw new ItemNotFoundException("Guest with this ID does not exist.");
 		}
 
-		if (!roomService.existsById(booking.getRoomId())) {
-			throw new ItemNotFoundException("Room with this ID does not exist.");
-		}
-
 	}
 
 	/**
