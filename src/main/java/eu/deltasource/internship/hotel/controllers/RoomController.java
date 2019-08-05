@@ -2,30 +2,23 @@ package eu.deltasource.internship.hotel.controllers;
 
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.service.RoomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.List;
 
-//todo add rest controller because there is not beans
+@RestController
 @RequestMapping("/rooms")
 public class RoomController {
 
-	private final RoomService roomService;
-
-	public RoomController(RoomService roomService) {
-		this.roomService = roomService;
-	}
+	@Autowired
+	private RoomService roomService;
 
 	@GetMapping
 	List<Room> getAllRooms() {
 		return roomService.findRooms();
-	}
-
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	Room addNewRoom(@RequestBody Room room) {
-		return roomService.saveRoom(room);
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
