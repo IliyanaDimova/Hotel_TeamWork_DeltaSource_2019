@@ -168,6 +168,8 @@ public class BookingServiceTests {
 		bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayOne,
 			dayThree));
 		//then
+		//todo as the booking IDs aren't supposed to be a user input, that means that a user should be able to create
+		// a booking
 		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayTwo,
 				dateFour));

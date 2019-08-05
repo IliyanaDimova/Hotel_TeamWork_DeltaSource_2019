@@ -10,6 +10,7 @@ import eu.deltasource.internship.hotel.to.BookingTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -87,37 +88,45 @@ public class BookingService {
 	public void updateBooking(int id, LocalDate from, LocalDate to) {
 		validateBookingID(id);
 
-		Booking book = bookingRepository.findById(id);
+		Booking currentBooking = bookingRepository.findById(id);
 
-		for (Booking booking : bookingRepository.findAll()) {
-			if (booking.getRoomId() == book.getRoomId() && isOverlapping(from, to, booking) && id
-				!= booking.getBookingId()) {
-				throw new InvalidDateException("Booking overlaps with another one");
-			}
-		}
+		Booking potentialBooking = new Booking(currentBooking);
 
-		book.setBookingDates(from, to);
+		potentialBooking.setBookingDates(from,to);
+
+		BookingTO potentialBookingTO = new BookingTO(potentialBooking.getBookingId(),
+			potentialBooking.getGuestId(), potentialBooking.getRoomId(), potentialBooking.getNumberOfPeople(),
+			potentialBooking.getFrom(), potentialBooking.getTo());
+
+		//BookingTO bt = new BookingTO(potentialBooking);
+
+		updateOverlapChecker(potentialBookingTO);
+
+		currentBooking.setBookingDates(from, to);
 	}
 
-	public void updateBooking(BookingTO bookingTO) {
-		validateBooking(bookingTO);
-
-		Booking book = bookingRepository.findById(bookingTO.getBookingId());
-
-		for (Booking booking : bookingRepository.findAll()) {
-			if (booking.getRoomId() == book.getRoomId() && isOverlapping(bookingTO.getFrom(), bookingTO.getTo(),
-				booking) && bookingTO.getBookingId()
-				!= booking.getBookingId()) {
-				throw new InvalidDateException("Booking overlaps with another one");
-			}
-		}
-	}
-
-	private void overlapChecker(BookingTO booking) {
+	/**
+	 * Checks, if the booking dates are overlapping with any of the existing bookings of the room and throws, if they
+	 * are. To be used in the create booking method.
+	 */
+	private void creationOverlapChecker(BookingTO booking) {
 		for (Booking current : bookingRepository.findAll()) {
 			if (current.getRoomId() == booking.getRoomId() && isOverlapping(booking.getFrom(),
-				booking.getTo(), current) && booking.getBookingId() == current.getBookingId()) {
+				booking.getTo(), current)) {
 				throw new InvalidDateException("Booking overlaps with another one");
+			}
+		}
+	}
+
+	/**
+	 * Checks, if the booking dates are overlapping with any of the existing bookings of the room and throws, if they
+	 * are. To be used in the update booking method.
+	 */
+	private void updateOverlapChecker(BookingTO updatedBooking) {
+		for(Booking currentBooking : bookingRepository.findAll()){
+			if(currentBooking.getRoomId() == updatedBooking.getRoomId() && isOverlapping(updatedBooking.getFrom(),
+				updatedBooking.getTo(), currentBooking) && currentBooking.getBookingId() != updatedBooking.getBookingId()){
+				throw new InvalidDateException("Updated booking dates do overlap with another booking");
 			}
 		}
 	}
@@ -127,29 +136,26 @@ public class BookingService {
 	}
 
 	/**
-	 * Completely validates a booking. Checks if the BookingTO refference is pointing towards a null object, throws
-	 * if it is. Checks if every refference type field points towards a null object, throws if it is. Checks if the
+	 * Completely validates a booking. Checks if the BookingTO reference is pointing towards a null object, throws
+	 * if it is. Checks if every reference type field points towards a null object, throws if it is. Checks if the
 	 * dates are valid, throws, if they are not. Checks if a booking with the same ID exists and throws, if it does.
 	 * Checks, if
-	 * @param booking
 	 */
 	private void validateBooking(BookingTO booking) {
-		if (booking == null) {
-			throw new InvalidBookingException("Booking cannot be null");
-		} else if (booking.getFrom() == null) {
-			throw new InvalidDateException("From date cannot be null");
-		} else if (booking.getTo() == null) {
-			throw new InvalidDateException("To date cannot be null");
-		}
+
+		bookingNullCheck(booking);
 
 		if (booking.getTo().isBefore(booking.getFrom())) {
 			throw new InvalidDateException("To date cannot be after from date.");
 		}
 
+		if(booking.getFrom().isBefore(LocalDate.now())){
+			throw new InvalidDateException("Cannot book from a previous date.");
+		}
+
 		if (!guestService.existsById(booking.getGuestId())) {
 			throw new ItemNotFoundException("Guest with this ID does not exist.");
 		}
-
 	}
 
 	/**
@@ -173,7 +179,7 @@ public class BookingService {
 			throw new InvalidBookingException("Not enough space in room");
 		}
 
-		overlapChecker(booking);
+		creationOverlapChecker(booking);
 	}
 
 
@@ -194,6 +200,16 @@ public class BookingService {
 			bookingTO.getNumberOfPeople(),
 			bookingTO.getFrom(), bookingTO.getTo());
 		return book;
+	}
+
+	private void bookingNullCheck(BookingTO booking){
+		if (booking == null) {
+			throw new InvalidBookingException("Booking cannot be null");
+		} else if (booking.getFrom() == null) {
+			throw new InvalidDateException("From date cannot be null");
+		} else if (booking.getTo() == null) {
+			throw new InvalidDateException("To date cannot be null");
+		}
 	}
 
 
