@@ -120,24 +120,6 @@ public class BookingServiceTests {
 	}
 
 	@Test
-	public void createBooking_throwsException_whenCreatingDuplicateBookings() {
-		//given
-		setUp();
-		LocalDate today = LocalDate.now();
-		LocalDate tomorrow = LocalDate.now().plusDays(1);
-		//when
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
-			tomorrow));
-		//then
-		Assertions.assertThrows(InvalidBookingException.class, () -> {
-			bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
-				tomorrow));
-		});
-	}
-
-
-
-	@Test
 	public void getAllBookings_returnsBooking() {
 		//given
 		setUp();
