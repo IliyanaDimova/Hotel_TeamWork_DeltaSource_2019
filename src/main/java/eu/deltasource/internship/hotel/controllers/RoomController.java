@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("rooms")
+//todo add rest controller because there is not beans
+@RequestMapping("/rooms")
 public class RoomController {
 
 	private final RoomService roomService;
@@ -31,8 +31,9 @@ public class RoomController {
 		roomService.saveRooms(rooms);
 	}
 
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	Room getRoomById(@PathVariable int id) {
 		return roomService.getRoomById(id);
 	}
+
 }
