@@ -14,7 +14,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by Taner Ilyazov - Delta Source Bulgaria on 2019-07-28.
+ * Service class for Booking
+ * Has BookingRepository field, RoomService field and GuestService field
  */
 @Service
 public class BookingService {
@@ -25,7 +26,11 @@ public class BookingService {
 
 	private final GuestService guestService;
 
+
 	@Autowired
+	/**
+	 * Constructor - gives value to all fields
+	 */
 	public BookingService(BookingRepository bookingRepository, RoomService roomService, GuestService guestService) {
 		this.bookingRepository = bookingRepository;
 		this.roomService = roomService;
@@ -33,10 +38,11 @@ public class BookingService {
 	}
 
 	/**
-	 * Adds a new entry to the repository, throws invalid param exception, if the booking is null or if the
+	 * Adds a new entry to the repository
+	 * Throws invalid param exception if the booking is null or if the
 	 * booking has a from value which is greater than the to value
 	 *
-	 * @param bookingTO id of the guest
+	 * @param bookingTO transfer object for the guest to be added
 	 */
 	public void createBooking(BookingTO bookingTO) {
 
@@ -57,8 +63,10 @@ public class BookingService {
 	}
 
 	/**
-	 * Returns a booking by it's id, throws if the booking does not exist
-	 * @param id id of the booking
+	 * Returns a booking by it's id
+	 * Throws if the booking does not exist
+	 *
+	 * @param id - id of the booking
 	 * @return the booking which has matching id
 	 */
 	public Booking getBookingById(int id) {
@@ -69,7 +77,7 @@ public class BookingService {
 	/**
 	 * Attempts to delete the item with matching id, returns a boolean
 	 *
-	 * @param id id of the item to be deleted
+	 * @param id - id of the item to be deleted
 	 * @return boolean depending if the item was successfully deleted or not
 	 */
 	public boolean removeBookingById(int id) {
@@ -78,7 +86,8 @@ public class BookingService {
 	}
 
 	/**
-	 * Updates a booking by using it's ID and throws, if the booking is overlapping with another one
+	 * Updates a booking by using it's ID
+	 * Throws if the booking is overlapping with another one
 	 *
 	 * @param id   id of the booking to be updated
 	 * @param from new from date
@@ -99,6 +108,13 @@ public class BookingService {
 		book.setBookingDates(from, to);
 	}
 
+	/**
+	 * Updates Booking by given Booking transfer object
+	 * Throws if Booking has null fields or from date is after to date
+	 * Throws if Booking with the given id does not exist
+	 *
+	 * @param bookingTO transfer object for Booking
+	 */
 	public void updateBooking(BookingTO bookingTO) {
 		validateBooking(bookingTO);
 
@@ -113,6 +129,12 @@ public class BookingService {
 		}
 	}
 
+	/**
+	 * Checks for overlapping time intervals in the Room's Bookings
+	 * Throws if interval overlaps
+	 *
+	 * @param booking the booking containing the time interval to be checked
+	 */
 	private void overlapChecker(BookingTO booking) {
 		for (Booking current : bookingRepository.findAll()) {
 			if (current.getRoomId() == booking.getRoomId() && isOverlapping(booking.getFrom(),
@@ -122,16 +144,20 @@ public class BookingService {
 		}
 	}
 
+	/**
+	 * @return true if interval from-to overlaps with book's from-to
+	 */
 	private boolean isOverlapping(LocalDate from, LocalDate to, Booking book) {
 		return !(book.getFrom().isAfter(to) || book.getTo().isBefore(from) || book.getTo().equals(from));
 	}
 
 	/**
-	 * Completely validates a booking. Checks if the BookingTO refference is pointing towards a null object, throws
-	 * if it is. Checks if every refference type field points towards a null object, throws if it is. Checks if the
+	 * Completely validates a booking. Checks if the BookingTO reference is pointing towards a null object, throws
+	 * if it is. Checks if every reference type field points towards a null object, throws if it is. Checks if the
 	 * dates are valid, throws, if they are not. Checks if a booking with the same ID exists and throws, if it does.
 	 * Checks, if
-	 * @param booking
+	 *
+	 * @param booking transfer Booking object to be checked
 	 */
 	private void validateBooking(BookingTO booking) {
 		if (booking == null) {
@@ -162,6 +188,7 @@ public class BookingService {
 	/**
 	 * Validates the room requested by the booking. Checks if the room exists, checks if the space in the room is
 	 * enough and throws, if either of the conditions aren't met.
+	 *
 	 * @param booking id of the booking
 	 */
 	private void validateRoom(BookingTO booking) {
