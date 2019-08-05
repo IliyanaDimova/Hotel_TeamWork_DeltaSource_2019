@@ -99,7 +99,7 @@ public class BookingService {
 		book.setBookingDates(from, to);
 	}
 
-	/*public void updateBooking(BookingTO bookingTO) {
+	public void updateBooking(BookingTO bookingTO) {
 		validateBooking(bookingTO);
 
 		Booking book = bookingRepository.findById(bookingTO.getBookingId());
@@ -111,7 +111,7 @@ public class BookingService {
 				throw new InvalidDateException("Booking overlaps with another one");
 			}
 		}
-	}*/
+	}
 
 	private void overlapChecker(BookingTO booking) {
 		for (Booking current : bookingRepository.findAll()) {
