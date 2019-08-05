@@ -23,12 +23,12 @@ public class GuestController {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void createGuest(@RequestBody GuestTO guest) {
-		guestService.createGuest(new GuestTO(guest.getFirstName(), guest.getLastName(), guest.getGender()));
+		guestService.createGuest(guest);
 	}
 
 	@GetMapping(value = "/{id}")
-	public void returnGuestById(@PathVariable("id") int id) {
-		guestService.returnGuestById(id);
+	public Guest returnGuestById(@PathVariable("id") int id) {
+		return guestService.returnGuestById(id);
 	}
 
 	@DeleteMapping(value = "/{id}")
@@ -36,7 +36,7 @@ public class GuestController {
 		guestService.removeGuestById(id);
 	}
 
-	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateGuestById(@RequestBody Guest guest) {
 		guestService.updateGuestById(guest.getGuestId(), new GuestTO(guest.getFirstName(), guest.getLastName(), guest.getGender()));
 	}
