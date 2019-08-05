@@ -9,6 +9,7 @@ import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
+import eu.deltasource.internship.hotel.to.RoomTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,15 +73,15 @@ public class BookingServiceTests {
 			new Bed(BedType.DOUBLE), new Bed(SINGLE), new Toilet(), new Toilet(), new Shower()));
 
 		// create some rooms
-		Room doubleRoom = new Room(1, doubleSet);
-		Room singleRoom = new Room(1, singleSet);
-		Room kingSizeRoom = new Room(1, kingSizeSet);
-		Room threePeopleKingSizeRoom = new Room(1, threePeopleKingSizeSet);
-		Room fourPersonRoom = new Room(1, fourPersonSet);
-		Room fivePersonRoom = new Room(1, fivePersonSet);
+		RoomTO doubleRoom = new RoomTO( doubleSet);
+		RoomTO singleRoom = new RoomTO( singleSet);
+		RoomTO kingSizeRoom = new RoomTO( kingSizeSet);
+		RoomTO threePeopleKingSizeRoom = new RoomTO( threePeopleKingSizeSet);
+		RoomTO fourPersonRoom = new RoomTO( fourPersonSet);
+		RoomTO fivePersonRoom = new RoomTO( fivePersonSet);
 
 		// adds the rooms to the repository, which then can be accesses from the RoomService
-		roomService.saveRooms(doubleRoom, singleRoom, kingSizeRoom, threePeopleKingSizeRoom, fourPersonRoom,
+		roomService.createRooms(doubleRoom, singleRoom, kingSizeRoom, threePeopleKingSizeRoom, fourPersonRoom,
 			fivePersonRoom);
 	}
 

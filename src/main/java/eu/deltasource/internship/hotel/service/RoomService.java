@@ -1,7 +1,9 @@
 package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Room;
+import eu.deltasource.internship.hotel.exception.FailedInitializationException;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
+import eu.deltasource.internship.hotel.to.RoomTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,12 +45,12 @@ public class RoomService {
 	/**
 	 * Adds a room in the repository
 	 * Throws Exception if room was not added
-	 *
-	 * @return the added room (unmodifiable)
 	 */
-	public Room saveRoom(Room room) {
+	public void createRoom(RoomTO room) {
+		if (room == null) {
+			throw new FailedInitializationException("Room can not be null ");
+		}
 		roomRepository.save(room);
-		return roomRepository.findById(room.getRoomId());
 	}
 
 	/**
@@ -61,7 +63,11 @@ public class RoomService {
 	/**
 	 * Adds many rooms to the repository
 	 */
-	public void saveRooms(Room... rooms) {
+	public void createRooms(RoomTO... rooms) {
+		for (RoomTO item : rooms) {
+			if (item == null)
+				throw new FailedInitializationException("Room can not be null ");
+		}
 		roomRepository.saveAll(rooms);
 	}
 
@@ -88,9 +94,9 @@ public class RoomService {
 	 * Throws Exception if room has no commodities or if there is no room with the given id
 	 *
 	 * @param room to be updated
-	 * @return the updated room (unmodifiable)
 	 */
-	public Room updateRoom(Room room) {
-		return roomRepository.updateRoom(room);
+	public void updateRoom(int roomId, RoomTO room) {
+		Room newRoom = new Room (roomId, room.getCommodities());
+		roomRepository.updateRoom(newRoom);
 	}
 }
