@@ -10,7 +10,6 @@ import eu.deltasource.internship.hotel.to.BookingTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,8 +32,6 @@ public class BookingService {
 		this.guestService = guestService;
 	}
 
-	//todo annotate accordingly & map, service
-
 	/**
 	 * Adds a new entry to the repository, throws invalid param exception, if the booking is null or if the
 	 * booking has a from value which is greater than the to value
@@ -48,8 +45,6 @@ public class BookingService {
 		validateRoom(bookingTO);
 
 		Room room = roomService.getRoomById(bookingTO.getRoomId());
-
-		//todo include in validate dates
 
 		bookingRepository.save(covertBookingTOtoBookingModel(bookingTO));
 	}
@@ -103,6 +98,20 @@ public class BookingService {
 
 		book.setBookingDates(from, to);
 	}
+
+	/*public void updateBooking(BookingTO bookingTO) {
+		validateBooking(bookingTO);
+
+		Booking book = bookingRepository.findById(bookingTO.getBookingId());
+
+		for (Booking booking : bookingRepository.findAll()) {
+			if (booking.getRoomId() == book.getRoomId() && isOverlapping(bookingTO.getFrom(), bookingTO.getTo(),
+				booking) && bookingTO.getBookingId()
+				!= booking.getBookingId()) {
+				throw new InvalidDateException("Booking overlaps with another one");
+			}
+		}
+	}*/
 
 	private void overlapChecker(BookingTO booking) {
 		for (Booking current : bookingRepository.findAll()) {

@@ -32,7 +32,7 @@ public class BookingServiceTests {
 
 	@BeforeEach
 	void setUp() {
-		Guest guest = new Guest(5, "gosho", "minka", Gender.FEMALE);
+		Guest guest = new Guest(0, "gosho", "minka", Gender.FEMALE);
 		bookingRepository = new BookingRepository();
 		guestRepository = new GuestRepository();
 		guestRepository.save(guest);
@@ -120,6 +120,26 @@ public class BookingServiceTests {
 	}
 
 	@Test
+	public void updateBooking_continuallyUpdates_evenWhenOverlappingWithSelf(){
+		//given
+		setUp();
+		LocalDate first = LocalDate.now();
+		LocalDate fifth = LocalDate.now().plusDays(4);
+		LocalDate twentyFirst = LocalDate.now().plusDays(20);
+		LocalDate twentyFifth = LocalDate.now().plusDays(25);
+		LocalDate twentySecond = LocalDate.now().plusDays(21);
+		bookingService.createBooking(new BookingTO(1, 1, 1, 1, first, fifth));
+		//when
+		//then
+		bookingService.updateBooking(1,twentyFirst, twentyFifth);
+		Assertions.assertEquals(twentyFirst,bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentyFifth,bookingService.getBookingById(1).getTo());
+		bookingService.updateBooking(1,fifth, twentySecond);
+		Assertions.assertEquals(fifth,bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentySecond,bookingService.getBookingById(1).getTo());
+	}
+
+	@Test
 	public void getAllBookings_returnsBooking() {
 		//given
 		setUp();
@@ -128,7 +148,7 @@ public class BookingServiceTests {
 		//when
 		BookingTO first = new BookingTO(1, 1, 1, 1, today,
 			tomorrow);
-		BookingTO second = new BookingTO(2, 1, 4, 2, today,
+		BookingTO second = new BookingTO(2, 1, 3, 2, today,
 			tomorrow);
 		bookingService.createBooking(first);
 		bookingService.createBooking(second);
