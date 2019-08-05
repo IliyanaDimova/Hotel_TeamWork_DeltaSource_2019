@@ -18,6 +18,10 @@ public class Guest {
 		initializeNamesAndNullChecks(firstName, lastName);
 	}
 
+	public Guest() {
+		guestId = 0;
+	}
+
 	/**
 	 * This constructor should be used
 	 * only by the repository.
@@ -76,5 +80,17 @@ public class Guest {
 
 	public void changeGender(Gender gender) {
 		this.gender = gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }
