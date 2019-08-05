@@ -3,6 +3,7 @@ package eu.deltasource.internship.hotel.service;
 import eu.deltasource.internship.hotel.domain.*;
 import eu.deltasource.internship.hotel.domain.commodity.*;
 import eu.deltasource.internship.hotel.exception.InvalidBookingException;
+import eu.deltasource.internship.hotel.exception.InvalidDateException;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
@@ -94,17 +95,17 @@ public class BookingServiceTests {
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		LocalDate yesterday = LocalDate.now().minusDays(1);
 
-		Assertions.assertThrows(InvalidParameterException.class, () -> {
+		Assertions.assertThrows(InvalidBookingException.class, () -> {
 			bookingService.createBooking(null);
 		});
-		Assertions.assertThrows(InvalidParameterException.class, () -> {
+		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.createBooking(new BookingTO(1, 1, 1, 1, null, null));
 		});
-		Assertions.assertThrows(InvalidParameterException.class, () -> {
+		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.createBooking(
 				new BookingTO(1, 1, 1, 1, today, null));
 		});
-		Assertions.assertThrows(InvalidParameterException.class, () -> {
+		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.createBooking(
 				new BookingTO(2, 1, 1, 1, today, yesterday));
 		});
@@ -166,7 +167,7 @@ public class BookingServiceTests {
 		bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayOne,
 			dayThree));
 		//then
-		Assertions.assertThrows(InvalidBookingException.class, () -> {
+		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayTwo,
 				dateFour));
 		});
@@ -203,7 +204,7 @@ public class BookingServiceTests {
 		bookingService.createBooking(new BookingTO(2, 1, 1, 1, todayPlusFive, todayPlusSeven));
 		//when
 		//then
-		Assertions.assertThrows(InvalidParameterException.class, () -> {
+		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.updateBooking(1, tomorrow, todayPlusSix);
 		});
 	}
