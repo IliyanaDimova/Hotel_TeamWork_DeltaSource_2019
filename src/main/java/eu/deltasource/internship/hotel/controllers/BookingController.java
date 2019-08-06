@@ -36,8 +36,13 @@ public class BookingController {
 		return bookingService.removeBookingById(id);
 	}
 
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void updateBooking(@RequestBody BookingTO bookingTO) {
-		bookingService.updateBooking(bookingTO.getRoomId(), bookingTO.getFrom(), bookingTO.getTo());
+	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void updateBooking(@RequestBody BookingTO bookingTO, @RequestParam int id) {
+		bookingService.updateBooking(id, bookingTO.getFrom(), bookingTO.getTo());
+	}
+
+	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void updateBooking(@RequestBody BookingTO bookingTO, @RequestParam int id) {
+		bookingService.updateBooking(id, bookingTO.getFrom(), bookingTO.getTo());
 	}
 }

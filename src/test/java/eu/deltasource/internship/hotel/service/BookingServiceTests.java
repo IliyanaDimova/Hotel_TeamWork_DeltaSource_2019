@@ -232,6 +232,10 @@ public class BookingServiceTests {
 		Assertions.assertEquals(twentySecond, bookingService.getBookingById(1).getTo());
 	}
 
+	/**
+	 * Checks if Booking is equal to BookingTO
+	 * @return true if equal
+	 */
 	private boolean isBookingTOequalToBooking(BookingTO bookingTO, Booking booking) {
 		return bookingTO.getGuestId() == booking.getGuestId() &&
 			bookingTO.getRoomId() == booking.getRoomId() &&
@@ -239,5 +243,4 @@ public class BookingServiceTests {
 			bookingTO.getFrom() == booking.getFrom() &&
 			bookingTO.getNumberOfPeople() == booking.getNumberOfPeople();
 	}
-
 }
