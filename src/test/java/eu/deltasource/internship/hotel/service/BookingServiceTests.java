@@ -132,16 +132,20 @@ public class BookingServiceTests {
 		LocalDate fifteenth = LocalDate.now().plusDays(14);
 		LocalDate twentyFirst = LocalDate.now().plusDays(20);
 		LocalDate twentyFifth = LocalDate.now().plusDays(25);
+		LocalDate twentyThird = LocalDate.now().plusDays(22);
 
 		bookingService.createBooking(new BookingTO(1, 1, 1, 1, eleventh, fifteenth));
 		//when
 		//then
 		bookingService.updateBooking(1, first, fifth);
-		Assertions.assertEquals(eleventh, bookingService.getBookingById(1).getFrom());
-		Assertions.assertEquals(fifteenth, bookingService.getBookingById(1).getTo());
+		Assertions.assertEquals(first, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(fifth, bookingService.getBookingById(1).getTo());
 		bookingService.updateBooking(1, twentyFirst, twentyFifth);
 		Assertions.assertEquals(twentyFirst, bookingService.getBookingById(1).getFrom());
 		Assertions.assertEquals(twentyFifth, bookingService.getBookingById(1).getTo());
+		bookingService.updateBooking(1, first, twentyThird);
+		Assertions.assertEquals(first, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentyThird, bookingService.getBookingById(1).getTo());
 	}
 
 	@Test
