@@ -5,7 +5,7 @@ import eu.deltasource.internship.hotel.domain.Booking;
 import java.time.LocalDate;
 
 /**
- * Transfer Object of Booking - has no ID
+ * Transfer Object of Booking
  */
 public class BookingTO {
 

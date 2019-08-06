@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by Taner Ilyazov - Delta Source Bulgaria on 2019-07-28.
+ * Service class for Guest
+ * Has one GuestRepository field
  */
 @Service
 public class GuestService {
@@ -17,6 +18,9 @@ public class GuestService {
 	private final GuestRepository guestRepository;
 
 	@Autowired
+	/**
+	 * Constructor - gives a repository value
+	 */
 	public GuestService(GuestRepository guestRepository) {
 		this.guestRepository = guestRepository;
 	}
@@ -24,7 +28,6 @@ public class GuestService {
 	/**
 	 * Checks if guest by given ID exists
 	 *
-	 * @param id given ID
 	 * @return true if the guest exists
 	 */
 	public boolean existsById(int id) {
@@ -42,7 +45,7 @@ public class GuestService {
 	}
 
 	/**
-	 * @return A list of all guests in a GuestRepository
+	 * @return a list of all guests in a GuestRepository
 	 */
 	public List<Guest> returnAllGuests() {
 		return guestRepository.findAll();
@@ -51,16 +54,13 @@ public class GuestService {
 	/**
 	 * Returns a guest by given guest ID
 	 * Throws Exception if Guest with this ID doesn't exist!
-	 *
-	 * @param guestId given guest ID
-	 * @return The guest wit this ID
 	 */
 	public Guest returnGuestById(int guestId) {
 		return guestRepository.findById(guestId);
 	}
 
 	/**
-	 * Updates a guest's name and gender by given guest ID
+	 * Updates a guest's names and gender by given guest ID
 	 * Throws Exception if Guest with this ID doesn't exist!
 	 *
 	 * @param guestId      the ID of the guest we want to update
@@ -73,10 +73,8 @@ public class GuestService {
 	}
 
 	/**
-	 * Removes a guest by ID
+	 * Removes a guest by given ID
 	 * Throws Exception if Guest with this ID doesn't exist!
-	 *
-	 * @param guestId the ID of the guest we want to remove
 	 */
 	public void removeGuestById(int guestId) {
 		guestRepository.delete(returnGuestById(guestId));
