@@ -96,7 +96,7 @@ public class BookingService {
 	public void updateBooking(int id, LocalDate from, LocalDate to) {
 		validateBookingID(id);
 
-		Booking currentBooking = bookingRepository.findById(id);
+		Booking currentBooking = getBookingById(id);
 
 		Booking potentialBooking = new Booking(currentBooking);
 

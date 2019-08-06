@@ -4,6 +4,7 @@ import eu.deltasource.internship.hotel.domain.commodity.AbstractCommodity;
 import eu.deltasource.internship.hotel.domain.commodity.Bed;
 import eu.deltasource.internship.hotel.exception.FailedInitializationException;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,10 @@ public class RoomTO {
 	private int roomCapacity;
 	private Set<AbstractCommodity> commodities;
 
+	public RoomTO(){
+
+	}
+
 	/**
 	 * Constructor - initializes all fields
 	 */
@@ -23,6 +28,11 @@ public class RoomTO {
 		this.commodities = new HashSet<>();
 		this.commodities.addAll(commodities);
 		roomCapacitySetter();
+	}
+
+	public void setCommodities(AbstractCommodity commodities) {
+
+		this.commodities = new HashSet<AbstractCommodity>(Arrays.asList(commodities));
 	}
 
 	public int getRoomCapacity() {
