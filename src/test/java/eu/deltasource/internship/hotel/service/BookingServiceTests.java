@@ -13,6 +13,10 @@ import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
 import eu.deltasource.internship.hotel.to.RoomTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.AbstractCommodityTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.BedTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.ShowerTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.ToiletTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,30 +54,28 @@ public class BookingServiceTests {
 
 		// Filling up hotel with ready rooms to use
 
-		// Comodities for a double room
-		AbstractCommodity doubleBed = new Bed(BedType.DOUBLE);
-		AbstractCommodity toilet = new Toilet();
-		AbstractCommodity shower = new Shower();
-
-		Set<AbstractCommodity> doubleSet = new HashSet<>(Arrays.asList(doubleBed, toilet, shower));
+		Set<AbstractCommodityTO> doubleSet = new HashSet<AbstractCommodityTO>(Arrays.asList(new BedTO(BedType.DOUBLE)
+			, new ToiletTO(), new ShowerTO()));
 		// commodities for a single room
-		Set<AbstractCommodity> singleSet = new HashSet<>(Arrays.asList(new Bed(SINGLE), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> singleSet = new HashSet<>(Arrays.asList(new BedTO(SINGLE), new ToiletTO(),
+			new ShowerTO()));
 
 		// commodities for a double room with king size bed
-		Set<AbstractCommodity> kingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE), new Toilet(),
-			new Shower()));
+		Set<AbstractCommodityTO> kingSizeSet = new HashSet<>(Arrays.asList(new BedTO(BedType.KING_SIZE),
+			new ToiletTO(),
+			new ToiletTO()));
 
 		// commodities for a 3 person room with a king size and a single
-		Set<AbstractCommodity> threePeopleKingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE),
-			new Bed(SINGLE), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> threePeopleKingSizeSet = new HashSet<>(Arrays.asList(new BedTO(BedType.KING_SIZE),
+			new BedTO(SINGLE), new ToiletTO(), new ToiletTO()));
 
 		// commodities for a 4 person room with 2 doubles
-		Set<AbstractCommodity> fourPersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.DOUBLE),
-			new Bed(BedType.DOUBLE), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> fourPersonSet = new HashSet<>(Arrays.asList(new BedTO(BedType.DOUBLE),
+			new BedTO(BedType.DOUBLE), new ToiletTO(), new ShowerTO()));
 
 		// commodities for a 4 person room with 2 doubles
-		Set<AbstractCommodity> fivePersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE),
-			new Bed(BedType.DOUBLE), new Bed(SINGLE), new Toilet(), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> fivePersonSet = new HashSet<>(Arrays.asList(new BedTO(BedType.KING_SIZE),
+			new BedTO(BedType.DOUBLE), new BedTO(SINGLE), new ToiletTO(), new ToiletTO(), new ShowerTO()));
 
 		// create some rooms
 		RoomTO doubleRoom = new RoomTO(doubleSet);
@@ -128,18 +130,20 @@ public class BookingServiceTests {
 		setUp();
 		LocalDate first = LocalDate.now();
 		LocalDate fifth = LocalDate.now().plusDays(4);
+		LocalDate eleventh = LocalDate.now().plusDays(10);
+		LocalDate fifteenth = LocalDate.now().plusDays(14);
 		LocalDate twentyFirst = LocalDate.now().plusDays(20);
 		LocalDate twentyFifth = LocalDate.now().plusDays(25);
-		LocalDate twentySecond = LocalDate.now().plusDays(21);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, first, fifth));
+
+		bookingService.createBooking(new BookingTO(1, 1, 1, 1, eleventh, fifteenth));
 		//when
 		//then
+		bookingService.updateBooking(1, first, fifth);
+		Assertions.assertEquals(eleventh, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(fifteenth, bookingService.getBookingById(1).getTo());
 		bookingService.updateBooking(1, twentyFirst, twentyFifth);
 		Assertions.assertEquals(twentyFirst, bookingService.getBookingById(1).getFrom());
 		Assertions.assertEquals(twentyFifth, bookingService.getBookingById(1).getTo());
-		bookingService.updateBooking(1, fifth, twentySecond);
-		Assertions.assertEquals(fifth, bookingService.getBookingById(1).getFrom());
-		Assertions.assertEquals(twentySecond, bookingService.getBookingById(1).getTo());
 	}
 
 	@Test

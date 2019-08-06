@@ -247,5 +247,5 @@ public class BookingService {
 			throw new InvalidDateException("To date cannot be null");
 		}
 	}
-	
+
 }
