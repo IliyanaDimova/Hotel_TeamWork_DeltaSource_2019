@@ -50,7 +50,7 @@ public class BookingService {
 
 		validateRoom(bookingTO);
 
-		Room room = roomService.getRoomById(bookingTO.getRoomId());
+		creationOverlapChecker(bookingTO);
 
 		bookingRepository.save(covertBookingTOtoBookingModel(bookingTO));
 	}
@@ -102,15 +102,10 @@ public class BookingService {
 
 		potentialBooking.setBookingDates(from, to);
 
-		BookingTO potentialBookingTO = new BookingTO(potentialBooking.getBookingId(),
-			potentialBooking.getGuestId(), potentialBooking.getRoomId(), potentialBooking.getNumberOfPeople(),
-			potentialBooking.getFrom(), potentialBooking.getTo());
-
+		BookingTO potentialBookingTO = new BookingTO(potentialBooking);
 		updateOverlapChecker(potentialBookingTO);
 
 		currentBooking.setBookingDates(from, to);
-
-
 	}
 
 	/**
@@ -122,15 +117,13 @@ public class BookingService {
 	 */
 	public void updateBooking(BookingTO bookingTO) {
 		validateBooking(bookingTO);
-
-		//BookingTO bt = new BookingTO(potentialBooking);
+		validateRoom(bookingTO);
 
 		updateOverlapChecker(bookingTO);
 
 		removeBookingById(bookingTO.getBookingId());
 
 		createBooking(bookingTO);
-
 	}
 
 	/**
@@ -215,8 +208,6 @@ public class BookingService {
 		if (!isSpaceEnough(booking.getNumberOfPeople(), roomService.getRoomById(booking.getRoomId()))) {
 			throw new InvalidBookingException("Not enough space in room");
 		}
-
-		creationOverlapChecker(booking);
 	}
 
 	/**
