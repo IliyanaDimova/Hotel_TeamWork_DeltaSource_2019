@@ -2,6 +2,7 @@ package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.exception.FailedInitializationException;
+import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
 import eu.deltasource.internship.hotel.to.RoomTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,20 +73,14 @@ public class RoomService {
 	}
 
 	/**
-	 * Deletes a room from the repository by given room
-	 *
-	 * @return true if successfully deleted
-	 */
-	public boolean deleteRoom(Room room) {
-		return roomRepository.delete(room);
-	}
-
-	/**
 	 * Deletes a room from the repository by given room id
 	 *
 	 * @return true if successfully deleted
 	 */
 	public boolean deleteRoomById(int id) {
+		if(!existsById(id)){
+			throw new ItemNotFoundException("Room not found");
+		}
 		return roomRepository.deleteById(id);
 	}
 
@@ -96,6 +91,10 @@ public class RoomService {
 	 * @param room to be updated
 	 */
 	public void updateRoom(int roomId, RoomTO room) {
+		if(!existsById(roomId)){
+			throw new ItemNotFoundException("Room not found");
+		}
+
 		Room newRoom = new Room (roomId, room.getCommodities());
 		roomRepository.updateRoom(newRoom);
 	}
