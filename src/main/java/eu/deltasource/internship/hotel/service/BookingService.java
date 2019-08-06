@@ -2,15 +2,14 @@ package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.domain.Room;
-import eu.deltasource.internship.hotel.exception.InvalidDateException;
 import eu.deltasource.internship.hotel.exception.InvalidBookingException;
+import eu.deltasource.internship.hotel.exception.InvalidDateException;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -109,7 +108,7 @@ public class BookingService {
 
 		updateOverlapChecker(potentialBookingTO);
 
-		currentBooking.setBookingDates(from,to);
+		currentBooking.setBookingDates(from, to);
 
 
 	}
@@ -138,6 +137,7 @@ public class BookingService {
 	 * Checks, if the booking dates are overlapping with any of the existing bookings of the room and throws, if they
 	 * are. To be used in the create booking method.
 	 */
+	//todo add method to controller & test
 	private void creationOverlapChecker(BookingTO booking) {
 
 		for (Booking current : bookingRepository.findAll()) {
@@ -153,26 +153,28 @@ public class BookingService {
 	 * are. To be used in the update booking method.
 	 */
 	private void updateOverlapChecker(BookingTO updatedBooking) {
-		for(Booking currentBooking : bookingRepository.findAll()){
-			if(currentBooking.getRoomId() == updatedBooking.getRoomId() && isOverlapping(updatedBooking.getFrom(),
-				updatedBooking.getTo(), currentBooking) && currentBooking.getBookingId() != updatedBooking.getBookingId()){
+		for (Booking currentBooking : bookingRepository.findAll()) {
+			if (currentBooking.getRoomId() == updatedBooking.getRoomId() && isOverlapping(updatedBooking.getFrom(),
+				updatedBooking.getTo(), currentBooking) && currentBooking.getBookingId() != updatedBooking.getBookingId()) {
 				throw new InvalidDateException("Updated booking dates do overlap with another booking");
 			}
 		}
 	}
 
-
 	/**
 	 * Checks if the dates of a booking are overlapping with the passed dates
 	 */
 	private boolean isOverlapping(LocalDate from, LocalDate to, Booking book) {
-		return !(book.getFrom().isAfter(to) || book.getTo().isBefore(from) || book.getTo().equals(from));
+		boolean isNewFromAfterBookedTo = book.getFrom().isAfter(to);
+		boolean isBookedToBeforeOrEqualFrom = book.getTo().isBefore(from) || book.getTo().equals(from);
+		return !(isNewFromAfterBookedTo || isBookedToBeforeOrEqualFrom);
 	}
 
 	/**
 	 * Completely validates a booking. Checks if the BookingTO reference is pointing towards a null object, throws
 	 * if it is. Checks if every reference type field points towards a null object, throws if it is. Checks if the
 	 * dates are valid, throws, if they are not. Checks if a booking with the same ID exists and throws, if it does.
+	 *
 	 * @param booking transfer Booking object to be checked
 	 */
 	private void validateBooking(BookingTO booking) {
@@ -183,7 +185,7 @@ public class BookingService {
 			throw new InvalidDateException("To date cannot be after from date.");
 		}
 
-		if(booking.getFrom().isBefore(LocalDate.now())){
+		if (booking.getFrom().isBefore(LocalDate.now())) {
 			throw new InvalidDateException("Cannot book from a previous date.");
 		}
 
@@ -217,7 +219,6 @@ public class BookingService {
 		creationOverlapChecker(booking);
 	}
 
-
 	/**
 	 * Checks if a booking exists by it's ID and throws an exception, if it does not.
 	 */
@@ -237,7 +238,7 @@ public class BookingService {
 		return book;
 	}
 
-	private void bookingNullCheck(BookingTO booking){
+	private void bookingNullCheck(BookingTO booking) {
 		if (booking == null) {
 			throw new InvalidBookingException("Booking cannot be null");
 		} else if (booking.getFrom() == null) {
@@ -246,6 +247,5 @@ public class BookingService {
 			throw new InvalidDateException("To date cannot be null");
 		}
 	}
-
-
+	
 }

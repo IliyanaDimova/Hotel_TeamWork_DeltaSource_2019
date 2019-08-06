@@ -1,7 +1,6 @@
 package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Hotel;
-import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.domain.commodity.*;
 import eu.deltasource.internship.hotel.repository.BookingRepository;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
@@ -65,12 +64,12 @@ public class TestConfiguration {
 			new Bed(BedType.DOUBLE), new Bed(SINGLE), new Toilet(), new Toilet(), new Shower()));
 
 		// create some rooms
-		RoomTO doubleRoom = new RoomTO( doubleSet);
-		RoomTO singleRoom = new RoomTO( singleSet);
-		RoomTO kingSizeRoom = new RoomTO( kingSizeSet);
-		RoomTO threePeopleKingSizeRoom = new RoomTO( threePeopleKingSizeSet);
-		RoomTO fourPersonRoom = new RoomTO( fourPersonSet);
-		RoomTO fivePersonRoom = new RoomTO( fivePersonSet);
+		RoomTO doubleRoom = new RoomTO(doubleSet);
+		RoomTO singleRoom = new RoomTO(singleSet);
+		RoomTO kingSizeRoom = new RoomTO(kingSizeSet);
+		RoomTO threePeopleKingSizeRoom = new RoomTO(threePeopleKingSizeSet);
+		RoomTO fourPersonRoom = new RoomTO(fourPersonSet);
+		RoomTO fivePersonRoom = new RoomTO(fivePersonSet);
 
 		// adds the rooms to the repository, which then can be accesses from the RoomService
 		roomService.createRooms(doubleRoom, singleRoom, kingSizeRoom, threePeopleKingSizeRoom, fourPersonRoom,

@@ -25,7 +25,7 @@ public class BookingController {
 	}
 
 	@GetMapping
-	public List<Booking> getAllBookings(){
+	public List<Booking> getAllBookings() {
 		return bookingService.getAllBookings();
 	}
 
@@ -41,6 +41,6 @@ public class BookingController {
 
 	@PutMapping(value = "/{id}")
 	public void updateBooking(@PathVariable(value = "id") int bookingID, @RequestBody LocalDate from, LocalDate to) {
-		bookingService.updateBooking(bookingID,from,to);
+		bookingService.updateBooking(bookingID, from, to);
 	}
 }

@@ -1,6 +1,9 @@
 package eu.deltasource.internship.hotel.service;
 
-import eu.deltasource.internship.hotel.domain.*;
+import eu.deltasource.internship.hotel.domain.Booking;
+import eu.deltasource.internship.hotel.domain.Gender;
+import eu.deltasource.internship.hotel.domain.Guest;
+import eu.deltasource.internship.hotel.domain.Hotel;
 import eu.deltasource.internship.hotel.domain.commodity.*;
 import eu.deltasource.internship.hotel.exception.InvalidBookingException;
 import eu.deltasource.internship.hotel.exception.InvalidDateException;
@@ -11,8 +14,8 @@ import eu.deltasource.internship.hotel.repository.RoomRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
 import eu.deltasource.internship.hotel.to.RoomTO;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -73,12 +76,12 @@ public class BookingServiceTests {
 			new Bed(BedType.DOUBLE), new Bed(SINGLE), new Toilet(), new Toilet(), new Shower()));
 
 		// create some rooms
-		RoomTO doubleRoom = new RoomTO( doubleSet);
-		RoomTO singleRoom = new RoomTO( singleSet);
-		RoomTO kingSizeRoom = new RoomTO( kingSizeSet);
-		RoomTO threePeopleKingSizeRoom = new RoomTO( threePeopleKingSizeSet);
-		RoomTO fourPersonRoom = new RoomTO( fourPersonSet);
-		RoomTO fivePersonRoom = new RoomTO( fivePersonSet);
+		RoomTO doubleRoom = new RoomTO(doubleSet);
+		RoomTO singleRoom = new RoomTO(singleSet);
+		RoomTO kingSizeRoom = new RoomTO(kingSizeSet);
+		RoomTO threePeopleKingSizeRoom = new RoomTO(threePeopleKingSizeSet);
+		RoomTO fourPersonRoom = new RoomTO(fourPersonSet);
+		RoomTO fivePersonRoom = new RoomTO(fivePersonSet);
 
 		// adds the rooms to the repository, which then can be accesses from the RoomService
 		roomService.createRooms(doubleRoom, singleRoom, kingSizeRoom, threePeopleKingSizeRoom, fourPersonRoom,
@@ -120,7 +123,7 @@ public class BookingServiceTests {
 	}
 
 	@Test
-	public void updateBooking_continuallyUpdates_evenWhenOverlappingWithSelf(){
+	public void updateBooking_continuallyUpdates_evenWhenOverlappingWithSelf() {
 		//given
 		setUp();
 		LocalDate first = LocalDate.now();
@@ -131,12 +134,12 @@ public class BookingServiceTests {
 		bookingService.createBooking(new BookingTO(1, 1, 1, 1, first, fifth));
 		//when
 		//then
-		bookingService.updateBooking(1,twentyFirst, twentyFifth);
-		Assertions.assertEquals(twentyFirst,bookingService.getBookingById(1).getFrom());
-		Assertions.assertEquals(twentyFifth,bookingService.getBookingById(1).getTo());
-		bookingService.updateBooking(1,fifth, twentySecond);
-		Assertions.assertEquals(fifth,bookingService.getBookingById(1).getFrom());
-		Assertions.assertEquals(twentySecond,bookingService.getBookingById(1).getTo());
+		bookingService.updateBooking(1, twentyFirst, twentyFifth);
+		Assertions.assertEquals(twentyFirst, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentyFifth, bookingService.getBookingById(1).getTo());
+		bookingService.updateBooking(1, fifth, twentySecond);
+		Assertions.assertEquals(fifth, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentySecond, bookingService.getBookingById(1).getTo());
 	}
 
 	@Test
@@ -159,7 +162,7 @@ public class BookingServiceTests {
 	}
 
 	@Test
-	public void createBooking_throws_whenDatesOverlap(){
+	public void createBooking_throws_whenDatesOverlap() {
 		//given
 		LocalDate dayOne = LocalDate.now();
 		LocalDate dayTwo = LocalDate.now().plusDays(1);

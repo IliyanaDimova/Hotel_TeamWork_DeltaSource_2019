@@ -96,7 +96,7 @@ public class RoomService {
 	 * @param room to be updated
 	 */
 	public void updateRoom(int roomId, RoomTO room) {
-		Room newRoom = new Room (roomId, room.getCommodities());
+		Room newRoom = new Room(roomId, room.getCommodities());
 		roomRepository.updateRoom(newRoom);
 	}
 }

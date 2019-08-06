@@ -8,7 +8,6 @@ import eu.deltasource.internship.hotel.to.GuestTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.FailedLoginException;
 import java.util.List;
 
 /**
@@ -44,7 +43,7 @@ public class GuestService {
 	 * @param guest transfer object for guest
 	 */
 	public void createGuest(GuestTO guest) {
-		if(guest.getGender()!= Gender.FEMALE && guest.getGender()!= Gender.MALE){
+		if (guest.getGender() != Gender.FEMALE && guest.getGender() != Gender.MALE) {
 			throw new FailedInitializationException("Invalid Gender!");
 		}
 		Guest newGuest = new Guest(0, guest.getLastName(), guest.getFirstName(), guest.getGender());
@@ -74,7 +73,7 @@ public class GuestService {
 	 * @param newGuestData transfer object for Guest without ID
 	 */
 	public void updateGuestById(int guestId, GuestTO newGuestData) {
-		if(newGuestData.getGender()!= Gender.FEMALE && newGuestData.getGender()!= Gender.MALE){
+		if (newGuestData.getGender() != Gender.FEMALE && newGuestData.getGender() != Gender.MALE) {
 			throw new FailedInitializationException("Invalid Gender!");
 		}
 		Guest updatedGuest = new Guest(guestId, newGuestData.getFirstName(), newGuestData.getLastName(),
