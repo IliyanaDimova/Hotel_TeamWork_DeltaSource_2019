@@ -47,7 +47,6 @@ public class BookingService {
 	public void createBooking(BookingTO bookingTO) {
 
 		validateBooking(bookingTO);
-
 		validateRoom(bookingTO);
 
 		creationOverlapChecker(bookingTO);
@@ -201,9 +200,6 @@ public class BookingService {
 	 * @param booking id of the booking
 	 */
 	private void validateRoom(BookingTO booking) {
-		if (!roomService.existsById(booking.getRoomId())) {
-			throw new ItemNotFoundException("Room does not exist.");
-		}
 
 		if (!isSpaceEnough(booking.getNumberOfPeople(), roomService.getRoomById(booking.getRoomId()))) {
 			throw new InvalidBookingException("Not enough space in room");
@@ -220,7 +216,7 @@ public class BookingService {
 	}
 
 	/**
-	 * Converts the bookingTO to a Booking
+	 * Converts the BookingTO (Booking transfer object) to a Booking
 	 */
 	private Booking covertBookingTOtoBookingModel(BookingTO bookingTO) {
 		Booking book = new Booking(bookingTO.getBookingId(), bookingTO.getGuestId(), bookingTO.getRoomId(),
@@ -229,6 +225,9 @@ public class BookingService {
 		return book;
 	}
 
+	/**
+	 * Checks BookingTO (Transfer Booking object) and it's fields if they are null
+	 */
 	private void bookingNullCheck(BookingTO booking) {
 		if (booking == null) {
 			throw new InvalidBookingException("Booking cannot be null");
@@ -238,5 +237,5 @@ public class BookingService {
 			throw new InvalidDateException("To date cannot be null");
 		}
 	}
-	
+
 }

@@ -4,22 +4,19 @@ import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.service.BookingService;
 import eu.deltasource.internship.hotel.to.BookingTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/bookings")
 public class BookingController {
 
 	@Autowired
 	private BookingService bookingService;
 
-	//todo change all of the request bodies to strings which are goint to be json
-	//todo map the jason strings to BookingTOs using jackson
-
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void createBooking(@RequestBody BookingTO newBooking) {
 		bookingService.createBooking(newBooking);
 	}
@@ -39,8 +36,8 @@ public class BookingController {
 		return bookingService.removeBookingById(id);
 	}
 
-	@PutMapping(value = "/{id}")
-	public void updateBooking(@PathVariable(value = "id") int bookingID, @RequestBody LocalDate from, LocalDate to) {
-		bookingService.updateBooking(bookingID, from, to);
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void updateBooking(@RequestBody BookingTO bookingTO) {
+		bookingService.updateBooking(bookingTO.getRoomId(), bookingTO.getFrom(), bookingTO.getTo());
 	}
 }
