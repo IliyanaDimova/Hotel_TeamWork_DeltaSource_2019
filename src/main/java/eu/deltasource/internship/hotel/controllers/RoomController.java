@@ -30,6 +30,4 @@ public class RoomController {
 	Room getRoomById(@PathVariable int id) {
 		return roomService.getRoomById(id);
 	}
-
-
 }
