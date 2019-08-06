@@ -47,10 +47,7 @@ public class BookingService {
 	public void createBooking(BookingTO bookingTO) {
 
 		validateBooking(bookingTO);
-
 		validateRoom(bookingTO);
-
-		Room room = roomService.getRoomById(bookingTO.getRoomId());
 
 		bookingRepository.save(covertBookingTOtoBookingModel(bookingTO));
 	}
@@ -109,7 +106,6 @@ public class BookingService {
 		updateOverlapChecker(potentialBookingTO);
 
 		currentBooking.setBookingDates(from, to);
-
 
 	}
 

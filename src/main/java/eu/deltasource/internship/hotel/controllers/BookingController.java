@@ -10,13 +10,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/bookings")
 public class BookingController {
 
 	@Autowired
 	private BookingService bookingService;
 
-	//todo change all of the request bodies to strings which are goint to be json
+	//todo change all of the request bodies to strings which are going to be json
 	//todo map the jason strings to BookingTOs using jackson
 
 	@PostMapping
