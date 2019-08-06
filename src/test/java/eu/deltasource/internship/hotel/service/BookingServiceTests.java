@@ -91,7 +91,6 @@ public class BookingServiceTests {
 	@Test
 	public void createBooking_throwsInvalidParameter_whenPassedNull() {
 		//given
-		setUp();
 		// when
 		//then
 		LocalDate today = LocalDate.now();
@@ -125,7 +124,6 @@ public class BookingServiceTests {
 	@Test
 	public void updateBooking_continuallyUpdates_evenWhenOverlappingWithSelf() {
 		//given
-		setUp();
 		LocalDate first = LocalDate.now();
 		LocalDate fifth = LocalDate.now().plusDays(4);
 		LocalDate twentyFirst = LocalDate.now().plusDays(20);
@@ -145,7 +143,6 @@ public class BookingServiceTests {
 	@Test
 	public void getAllBookings_returnsBooking() {
 		//given
-		setUp();
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		//when
@@ -172,8 +169,6 @@ public class BookingServiceTests {
 		bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayOne,
 			dayThree));
 		//then
-		//todo as the booking IDs aren't supposed to be a user input, that means that a user should be able to create
-		// a booking
 		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayTwo,
 				dateFour));
@@ -185,7 +180,6 @@ public class BookingServiceTests {
 	@Test
 	public void updateBooking_updatesBooking_singleBooking() {
 		//given
-		setUp();
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		LocalDate todayPlusThree = LocalDate.now().plusDays(3);
@@ -201,7 +195,6 @@ public class BookingServiceTests {
 	@Test
 	public void updateBooking_throws_whenOverlapping() {
 		//given
-		setUp();
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		LocalDate todayPlusFive = LocalDate.now().plusDays(5);
@@ -214,6 +207,29 @@ public class BookingServiceTests {
 		Assertions.assertThrows(InvalidDateException.class, () -> {
 			bookingService.updateBooking(1, tomorrow, todayPlusSix);
 		});
+	}
+
+	@Test
+	public void updateBooking_continuallyUpdates_objectOverload() {
+		//given
+		LocalDate first = LocalDate.now();
+		LocalDate fifth = LocalDate.now().plusDays(4);
+		LocalDate twentyFirst = LocalDate.now().plusDays(20);
+		LocalDate twentyFifth = LocalDate.now().plusDays(25);
+		LocalDate twentySecond = LocalDate.now().plusDays(21);
+		bookingService.createBooking(new BookingTO(1, 1, 1, 1, first, fifth));
+
+		BookingTO updateBooking1 = new BookingTO(1, 1, 1, 1, twentyFirst, twentyFifth);
+		BookingTO updateBooking2 = new BookingTO(1, 1, 1, 1, fifth, twentySecond);
+
+		//when
+		//then
+		bookingService.updateBooking(updateBooking1);
+		Assertions.assertEquals(twentyFirst, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentyFifth, bookingService.getBookingById(1).getTo());
+		bookingService.updateBooking(updateBooking2);
+		Assertions.assertEquals(fifth, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentySecond, bookingService.getBookingById(1).getTo());
 	}
 
 	private boolean isBookingTOequalToBooking(BookingTO bookingTO, Booking booking) {

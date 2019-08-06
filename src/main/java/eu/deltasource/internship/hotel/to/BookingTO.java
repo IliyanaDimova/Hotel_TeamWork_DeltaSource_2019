@@ -57,6 +57,7 @@ public class BookingTO {
 		this.roomId = bookingModel.getRoomId();
 		this.numberOfPeople = bookingModel.getNumberOfPeople();
 		this.from = bookingModel.getFrom();
+		this.to = bookingModel.getTo();
 	}
 
 	/**
