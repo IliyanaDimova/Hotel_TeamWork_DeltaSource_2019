@@ -4,7 +4,7 @@ import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.domain.Hotel;
-import eu.deltasource.internship.hotel.domain.commodity.*;
+import eu.deltasource.internship.hotel.domain.commodity.BedType;
 import eu.deltasource.internship.hotel.exception.InvalidBookingException;
 import eu.deltasource.internship.hotel.exception.InvalidDateException;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
@@ -242,6 +242,7 @@ public class BookingServiceTests {
 
 	/**
 	 * Checks if Booking is equal to BookingTO
+	 *
 	 * @return true if equal
 	 */
 	private boolean isBookingTOequalToBooking(BookingTO bookingTO, Booking booking) {

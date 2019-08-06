@@ -1,14 +1,12 @@
 package eu.deltasource.internship.hotel.controllers;
 
 import eu.deltasource.internship.hotel.domain.Booking;
-import eu.deltasource.internship.hotel.exception.InvalidDateException;
 import eu.deltasource.internship.hotel.service.BookingService;
 import eu.deltasource.internship.hotel.to.BookingTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

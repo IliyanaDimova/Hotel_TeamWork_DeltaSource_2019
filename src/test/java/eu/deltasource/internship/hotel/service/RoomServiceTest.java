@@ -1,10 +1,6 @@
 package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Room;
-import eu.deltasource.internship.hotel.domain.commodity.AbstractCommodity;
-import eu.deltasource.internship.hotel.domain.commodity.Bed;
-import eu.deltasource.internship.hotel.domain.commodity.Shower;
-import eu.deltasource.internship.hotel.domain.commodity.Toilet;
 import eu.deltasource.internship.hotel.exception.FailedInitializationException;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
