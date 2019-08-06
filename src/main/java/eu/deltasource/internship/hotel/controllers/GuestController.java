@@ -38,6 +38,7 @@ public class GuestController {
 
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateGuestById(@RequestBody Guest guest) {
-		guestService.updateGuestById(guest.getGuestId(), new GuestTO(guest.getFirstName(), guest.getLastName(), guest.getGender()));
+		guestService.updateGuestById(guest.getGuestId(), new GuestTO(guest.getFirstName(), guest.getLastName(),
+			guest.getGender()));
 	}
 }

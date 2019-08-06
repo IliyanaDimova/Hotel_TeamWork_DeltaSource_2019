@@ -94,8 +94,7 @@ public class RoomService {
 		if(!existsById(roomId)){
 			throw new ItemNotFoundException("Room not found");
 		}
-
-		Room newRoom = new Room (roomId, room.getCommodities());
+		Room newRoom = new Room(roomId, room.getCommodities());
 		roomRepository.updateRoom(newRoom);
 	}
 }

@@ -3,15 +3,14 @@ package eu.deltasource.internship.hotel.service;
 
 import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
+import eu.deltasource.internship.hotel.exception.FailedInitializationException;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.to.GuestTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GuestServiceTest {
 	GuestService guestService = new GuestService(new GuestRepository());
@@ -41,6 +40,17 @@ public class GuestServiceTest {
 		//when
 		//then
 		assertEquals(3, guestService.returnAllGuests().size());
+	}
+
+	@Test
+	public void testCreateGuestGenderThrows() {
+		//given
+		GuestTO invalidGender = new GuestTO("Name", "Name", null);
+		//when
+		//then
+		assertThrows(FailedInitializationException.class, () -> {
+			guestService.createGuest(invalidGender);
+		});
 	}
 
 	@Test
@@ -83,6 +93,17 @@ public class GuestServiceTest {
 		assertEquals(firstName, guestService.returnGuestById(2).getFirstName());
 		assertEquals(lastName, guestService.returnGuestById(2).getLastName());
 		assertEquals(gender, guestService.returnGuestById(2).getGender());
+	}
+
+	@Test
+	public void testUpdateGuestByIdThrowsGender() {
+		//given
+		GuestTO invalidGender = new GuestTO("Name", "Name", null);
+		//when
+		//then
+		assertThrows(FailedInitializationException.class, () -> {
+			guestService.updateGuestById(3, invalidGender);
+		});
 	}
 
 	@Test

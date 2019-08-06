@@ -37,14 +37,14 @@ public class BookingTO {
 	}
 
 	/**
-	 * @param booking
+	 * @param bookingModel
 	 */
-	public BookingTO(Booking booking) {
-		this.bookingId = booking.getBookingId();
-		this.guestId = booking.getGuestId();
-		this.roomId = booking.getRoomId();
-		this.numberOfPeople = booking.getNumberOfPeople();
-		this.from = booking.getFrom();
+	public BookingTO(Booking bookingModel) {
+		this.bookingId = bookingModel.getBookingId();
+		this.guestId = bookingModel.getGuestId();
+		this.roomId = bookingModel.getRoomId();
+		this.numberOfPeople = bookingModel.getNumberOfPeople();
+		this.from = bookingModel.getFrom();
 	}
 
 	/**
