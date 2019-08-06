@@ -97,6 +97,17 @@ public class GuestServiceTest {
 	}
 
 	@Test
+	public void testUpdateGuestByIdThrowsGender() {
+		//given
+		GuestTO invalidGender = new GuestTO("Name", "Name", null);
+		//when
+		//then
+		assertThrows(FailedInitializationException.class, () -> {
+			guestService.updateGuestById(3, invalidGender);
+		});
+	}
+
+	@Test
 	public void testRemoveGuestById() {
 		//given
 		//when

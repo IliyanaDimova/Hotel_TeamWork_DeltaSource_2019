@@ -68,12 +68,15 @@ public class GuestService {
 
 	/**
 	 * Updates a guest's names and gender by given guest ID
-	 * Throws Exception if Guest with this ID doesn't exist!
+	 * Throws Exception if Guest with this ID doesn't exist or gender is not female/male
 	 *
 	 * @param guestId      the ID of the guest we want to update
 	 * @param newGuestData transfer object for Guest without ID
 	 */
 	public void updateGuestById(int guestId, GuestTO newGuestData) {
+		if(newGuestData.getGender()!= Gender.FEMALE && newGuestData.getGender()!= Gender.MALE){
+			throw new FailedInitializationException("Invalid Gender!");
+		}
 		Guest updatedGuest = new Guest(guestId, newGuestData.getFirstName(), newGuestData.getLastName(),
 			newGuestData.getGender());
 		guestRepository.updateGuest(updatedGuest);
