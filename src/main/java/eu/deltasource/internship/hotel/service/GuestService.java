@@ -1,11 +1,14 @@
 package eu.deltasource.internship.hotel.service;
 
+import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
+import eu.deltasource.internship.hotel.exception.FailedInitializationException;
 import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.to.GuestTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.FailedLoginException;
 import java.util.List;
 
 /**
@@ -36,10 +39,14 @@ public class GuestService {
 
 	/**
 	 * Adds a new guest to GuestRepository
+	 * Throws if gender is not female/male
 	 *
 	 * @param guest transfer object for guest
 	 */
 	public void createGuest(GuestTO guest) {
+		if(guest.getGender()!= Gender.FEMALE && guest.getGender()!= Gender.MALE){
+			throw new FailedInitializationException("Invalid Gender!");
+		}
 		Guest newGuest = new Guest(0, guest.getLastName(), guest.getFirstName(), guest.getGender());
 		guestRepository.save(newGuest);
 	}
