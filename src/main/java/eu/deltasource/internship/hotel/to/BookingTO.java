@@ -1,5 +1,10 @@
 package eu.deltasource.internship.hotel.to;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import eu.deltasource.internship.hotel.domain.Booking;
 
 import java.time.LocalDate;
@@ -15,7 +20,14 @@ public class BookingTO {
 
 	private int numberOfPeople;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate from;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate to;
 
 	/**
@@ -102,4 +114,33 @@ public class BookingTO {
 		return guestId;
 	}
 
+	/**
+	 * Empty constructor -needed for Json
+	 */
+	public BookingTO() {
+	}
+
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
+
+	public void setGuestId(int guestId) {
+		this.guestId = guestId;
+	}
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
+
+	public void setNumberOfPeople(int numberOfPeople) {
+		this.numberOfPeople = numberOfPeople;
+	}
+
+	public void setFrom(LocalDate from) {
+		this.from = from;
+	}
+
+	public void setTo(LocalDate to) {
+		this.to = to;
+	}
 }
