@@ -47,7 +47,6 @@ public class BookingService {
 	public void createBooking(BookingTO bookingTO) {
 
 		validateBooking(bookingTO);
-
 		validateRoom(bookingTO);
 
 		creationOverlapChecker(bookingTO);
