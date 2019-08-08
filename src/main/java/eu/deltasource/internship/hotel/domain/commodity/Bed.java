@@ -5,12 +5,16 @@ package eu.deltasource.internship.hotel.domain.commodity;
  */
 public class Bed extends AbstractCommodity {
 
-	private final BedType bedType;
+	private BedType bedType;
 
 	public Bed(BedType bedType) {
 		super();
 		this.bedType = bedType;
 
+	}
+
+	public Bed() {
+		super();
 	}
 
 	public BedType getBedType() {
