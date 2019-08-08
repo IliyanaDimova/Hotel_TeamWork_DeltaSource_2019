@@ -12,13 +12,9 @@ public class Bed extends AbstractCommodity {
 		this.bedType = bedType;
 
 	}
-	//todo da se iznesat v TO
-	public Bed(){
-		super();
-	}
 
-	public void setBedType(BedType bedType) {
-		this.bedType = bedType;
+	public Bed() {
+		super();
 	}
 
 	public BedType getBedType() {

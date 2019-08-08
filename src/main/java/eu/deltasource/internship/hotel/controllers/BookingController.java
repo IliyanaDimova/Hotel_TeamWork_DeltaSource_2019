@@ -18,7 +18,7 @@ public class BookingController {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void createBooking(@RequestBody BookingTO newBooking) {
-		bookingService.createBooking(newBooking);
+		bookingService.bookFirstAvailable(newBooking);
 	}
 
 	@GetMapping

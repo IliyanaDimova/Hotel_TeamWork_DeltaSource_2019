@@ -123,7 +123,8 @@ public class BookingRepository {
 	 */
 	public boolean deleteById(int id) {
 		for (Booking booking : repository) {
-			if (booking.getGuestId() == id) {
+			//changed from .getGuestId to .getBookingId
+			if (booking.getBookingId() == id) {
 				return delete(booking);
 			}
 		}

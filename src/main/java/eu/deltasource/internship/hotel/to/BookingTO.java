@@ -31,6 +31,12 @@ public class BookingTO {
 	private LocalDate to;
 
 	/**
+	 * Empty constructor -needed for Json
+	 */
+	public BookingTO() {
+	}
+
+	/**
 	 * Constructor with all params
 	 *
 	 * @param guestId
@@ -113,12 +119,6 @@ public class BookingTO {
 	 */
 	public int getGuestId() {
 		return guestId;
-	}
-
-	/**
-	 * Empty constructor -needed for Json
-	 */
-	public BookingTO() {
 	}
 
 	public void setBookingId(int bookingId) {

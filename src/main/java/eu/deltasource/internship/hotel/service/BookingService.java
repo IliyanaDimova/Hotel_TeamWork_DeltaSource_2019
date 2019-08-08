@@ -38,15 +38,37 @@ public class BookingService {
 	}
 
 	/**
+	 * Creates the booking for the first available room in the date range.
+	 * @param bookingTO
+	 */
+	public void bookFirstAvailable(BookingTO bookingTO) {
+		boolean roomBooked = false;
+		validateBooking(bookingTO);
+		for (Room room : roomService.findRooms()) {
+			try {
+				bookingTO.setRoomId(room.getRoomId());
+				createBookingById(bookingTO);
+				return;
+			} catch (InvalidBookingException e) {
+
+			}
+		}
+		if (!roomBooked) {
+			throw new InvalidBookingException("No available rooms");
+		}
+	}
+
+	/**
 	 * Adds a new entry to the repository
 	 * Throws invalid param exception if the booking is null or if the
 	 * booking has a from value which is greater than the to value
 	 *
 	 * @param bookingTO transfer object for the guest to be added
 	 */
-	public void createBooking(BookingTO bookingTO) {
+	public void createBookingById(BookingTO bookingTO) {
 
 		validateBooking(bookingTO);
+
 		validateRoom(bookingTO);
 
 		creationOverlapChecker(bookingTO);
@@ -122,7 +144,7 @@ public class BookingService {
 
 		removeBookingById(bookingTO.getBookingId());
 
-		createBooking(bookingTO);
+		createBookingById(bookingTO);
 	}
 
 	/**
@@ -237,5 +259,4 @@ public class BookingService {
 			throw new InvalidDateException("To date cannot be null");
 		}
 	}
-
 }

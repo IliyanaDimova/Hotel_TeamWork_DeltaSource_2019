@@ -2,7 +2,6 @@ package eu.deltasource.internship.hotel.repository;
 
 import eu.deltasource.internship.hotel.domain.Room;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
-import eu.deltasource.internship.hotel.to.RoomTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class RoomRepository {
 	 * Saves the item in the repository with a new id
 	 * using the item count in the repository
 	 */
-	public void save(RoomTO item) {
+	public void save(Room item) {
 		Room newRoom = new Room(idGenerator(), item.getCommodities());
 		repository.add(newRoom);
 	}
@@ -72,7 +71,7 @@ public class RoomRepository {
 	/**
 	 * Saves the list of items in the repository
 	 */
-	public void saveAll(List<RoomTO> items) {
+	public void saveAll(List<Room> items) {
 		items.forEach(
 			this::save);
 	}
@@ -80,7 +79,7 @@ public class RoomRepository {
 	/**
 	 * Saves all given items in the repository
 	 */
-	public void saveAll(RoomTO... items) {
+	public void saveAll(Room... items) {
 		saveAll(Arrays.asList(items));
 	}
 

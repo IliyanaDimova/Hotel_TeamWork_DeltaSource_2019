@@ -4,7 +4,7 @@ import eu.deltasource.internship.hotel.domain.Booking;
 import eu.deltasource.internship.hotel.domain.Gender;
 import eu.deltasource.internship.hotel.domain.Guest;
 import eu.deltasource.internship.hotel.domain.Hotel;
-import eu.deltasource.internship.hotel.domain.commodity.*;
+import eu.deltasource.internship.hotel.domain.commodity.BedType;
 import eu.deltasource.internship.hotel.exception.InvalidBookingException;
 import eu.deltasource.internship.hotel.exception.InvalidDateException;
 import eu.deltasource.internship.hotel.exception.ItemNotFoundException;
@@ -13,6 +13,10 @@ import eu.deltasource.internship.hotel.repository.GuestRepository;
 import eu.deltasource.internship.hotel.repository.RoomRepository;
 import eu.deltasource.internship.hotel.to.BookingTO;
 import eu.deltasource.internship.hotel.to.RoomTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.AbstractCommodityTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.BedTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.ShowerTO;
+import eu.deltasource.internship.hotel.to.commodityTOs.ToiletTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,30 +54,28 @@ public class BookingServiceTests {
 
 		// Filling up hotel with ready rooms to use
 
-		// Comodities for a double room
-		AbstractCommodity doubleBed = new Bed(BedType.DOUBLE);
-		AbstractCommodity toilet = new Toilet();
-		AbstractCommodity shower = new Shower();
-
-		Set<AbstractCommodity> doubleSet = new HashSet<>(Arrays.asList(doubleBed, toilet, shower));
+		Set<AbstractCommodityTO> doubleSet = new HashSet<AbstractCommodityTO>(Arrays.asList(new BedTO(BedType.DOUBLE)
+			, new ToiletTO(), new ShowerTO()));
 		// commodities for a single room
-		Set<AbstractCommodity> singleSet = new HashSet<>(Arrays.asList(new Bed(SINGLE), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> singleSet = new HashSet<>(Arrays.asList(new BedTO(SINGLE), new ToiletTO(),
+			new ShowerTO()));
 
 		// commodities for a double room with king size bed
-		Set<AbstractCommodity> kingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE), new Toilet(),
-			new Shower()));
+		Set<AbstractCommodityTO> kingSizeSet = new HashSet<>(Arrays.asList(new BedTO(BedType.KING_SIZE),
+			new ToiletTO(),
+			new ToiletTO()));
 
 		// commodities for a 3 person room with a king size and a single
-		Set<AbstractCommodity> threePeopleKingSizeSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE),
-			new Bed(SINGLE), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> threePeopleKingSizeSet = new HashSet<>(Arrays.asList(new BedTO(BedType.KING_SIZE),
+			new BedTO(SINGLE), new ToiletTO(), new ToiletTO()));
 
 		// commodities for a 4 person room with 2 doubles
-		Set<AbstractCommodity> fourPersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.DOUBLE),
-			new Bed(BedType.DOUBLE), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> fourPersonSet = new HashSet<>(Arrays.asList(new BedTO(BedType.DOUBLE),
+			new BedTO(BedType.DOUBLE), new ToiletTO(), new ShowerTO()));
 
 		// commodities for a 4 person room with 2 doubles
-		Set<AbstractCommodity> fivePersonSet = new HashSet<>(Arrays.asList(new Bed(BedType.KING_SIZE),
-			new Bed(BedType.DOUBLE), new Bed(SINGLE), new Toilet(), new Toilet(), new Shower()));
+		Set<AbstractCommodityTO> fivePersonSet = new HashSet<>(Arrays.asList(new BedTO(BedType.KING_SIZE),
+			new BedTO(BedType.DOUBLE), new BedTO(SINGLE), new ToiletTO(), new ToiletTO(), new ShowerTO()));
 
 		// create some rooms
 		RoomTO doubleRoom = new RoomTO(doubleSet);
@@ -98,25 +100,25 @@ public class BookingServiceTests {
 		LocalDate yesterday = LocalDate.now().minusDays(1);
 
 		Assertions.assertThrows(InvalidBookingException.class, () -> {
-			bookingService.createBooking(null);
+			bookingService.createBookingById(null);
 		});
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(new BookingTO(1, 1, 1, 1, null, null));
+			bookingService.createBookingById(new BookingTO(1, 1, 1, 1, null, null));
 		});
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(1, 1, 1, 1, today, null));
 		});
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(2, 1, 1, 1, today, yesterday));
 		});
 		Assertions.assertThrows(ItemNotFoundException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(3, 1, -1, 1, today, tomorrow));
 		});
 		Assertions.assertThrows(ItemNotFoundException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(4, -1, 1, 1, today, tomorrow));
 		});
 	}
@@ -126,18 +128,24 @@ public class BookingServiceTests {
 		//given
 		LocalDate first = LocalDate.now();
 		LocalDate fifth = LocalDate.now().plusDays(4);
+		LocalDate eleventh = LocalDate.now().plusDays(10);
+		LocalDate fifteenth = LocalDate.now().plusDays(14);
 		LocalDate twentyFirst = LocalDate.now().plusDays(20);
 		LocalDate twentyFifth = LocalDate.now().plusDays(25);
-		LocalDate twentySecond = LocalDate.now().plusDays(21);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, first, fifth));
+		LocalDate twentyThird = LocalDate.now().plusDays(22);
+
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, eleventh, fifteenth));
 		//when
 		//then
+		bookingService.updateBooking(1, first, fifth);
+		Assertions.assertEquals(first, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(fifth, bookingService.getBookingById(1).getTo());
 		bookingService.updateBooking(1, twentyFirst, twentyFifth);
 		Assertions.assertEquals(twentyFirst, bookingService.getBookingById(1).getFrom());
 		Assertions.assertEquals(twentyFifth, bookingService.getBookingById(1).getTo());
-		bookingService.updateBooking(1, fifth, twentySecond);
-		Assertions.assertEquals(fifth, bookingService.getBookingById(1).getFrom());
-		Assertions.assertEquals(twentySecond, bookingService.getBookingById(1).getTo());
+		bookingService.updateBooking(1, first, twentyThird);
+		Assertions.assertEquals(first, bookingService.getBookingById(1).getFrom());
+		Assertions.assertEquals(twentyThird, bookingService.getBookingById(1).getTo());
 	}
 
 	@Test
@@ -150,8 +158,8 @@ public class BookingServiceTests {
 			tomorrow);
 		BookingTO second = new BookingTO(2, 1, 3, 2, today,
 			tomorrow);
-		bookingService.createBooking(first);
-		bookingService.createBooking(second);
+		bookingService.createBookingById(first);
+		bookingService.createBookingById(second);
 		//then
 		Assertions.assertEquals(2, bookingService.getAllBookings().size());
 		Assertions.assertTrue(isBookingTOequalToBooking(first, bookingService.getBookingById(1)));
@@ -166,11 +174,11 @@ public class BookingServiceTests {
 		LocalDate dayThree = LocalDate.now().plusDays(2);
 		LocalDate dateFour = LocalDate.now().plusDays(3);
 		//when
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayOne,
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, dayOne,
 			dayThree));
 		//then
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayTwo,
+			bookingService.createBookingById(new BookingTO(1, 1, 1, 1, dayTwo,
 				dateFour));
 		});
 
@@ -183,7 +191,7 @@ public class BookingServiceTests {
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		LocalDate todayPlusThree = LocalDate.now().plusDays(3);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, today,
 			tomorrow));
 		//when
 		bookingService.updateBooking(1, today, todayPlusThree);
@@ -200,8 +208,8 @@ public class BookingServiceTests {
 		LocalDate todayPlusFive = LocalDate.now().plusDays(5);
 		LocalDate todayPlusSix = LocalDate.now().plusDays(6);
 		LocalDate todayPlusSeven = LocalDate.now().plusDays(7);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today, tomorrow));
-		bookingService.createBooking(new BookingTO(2, 1, 1, 1, todayPlusFive, todayPlusSeven));
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, today, tomorrow));
+		bookingService.createBookingById(new BookingTO(2, 1, 1, 1, todayPlusFive, todayPlusSeven));
 		//when
 		//then
 		Assertions.assertThrows(InvalidDateException.class, () -> {
@@ -217,7 +225,7 @@ public class BookingServiceTests {
 		LocalDate twentyFirst = LocalDate.now().plusDays(20);
 		LocalDate twentyFifth = LocalDate.now().plusDays(25);
 		LocalDate twentySecond = LocalDate.now().plusDays(21);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, first, fifth));
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, first, fifth));
 
 		BookingTO updateBooking1 = new BookingTO(1, 1, 1, 1, twentyFirst, twentyFifth);
 		BookingTO updateBooking2 = new BookingTO(1, 1, 1, 1, fifth, twentySecond);
@@ -234,6 +242,7 @@ public class BookingServiceTests {
 
 	/**
 	 * Checks if Booking is equal to BookingTO
+	 *
 	 * @return true if equal
 	 */
 	private boolean isBookingTOequalToBooking(BookingTO bookingTO, Booking booking) {

@@ -36,7 +36,7 @@ public class GuestController {
 		guestService.removeGuestById(id);
 	}
 
-	@PutMapping(value = "/{id}" ,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateGuestById(@PathVariable int id, @RequestBody GuestTO guest) {
 		guestService.updateGuestById(id, guest);
 	}
