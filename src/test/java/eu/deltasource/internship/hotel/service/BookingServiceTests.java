@@ -100,25 +100,25 @@ public class BookingServiceTests {
 		LocalDate yesterday = LocalDate.now().minusDays(1);
 
 		Assertions.assertThrows(InvalidBookingException.class, () -> {
-			bookingService.createBooking(null);
+			bookingService.createBookingById(null);
 		});
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(new BookingTO(1, 1, 1, 1, null, null));
+			bookingService.createBookingById(new BookingTO(1, 1, 1, 1, null, null));
 		});
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(1, 1, 1, 1, today, null));
 		});
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(2, 1, 1, 1, today, yesterday));
 		});
 		Assertions.assertThrows(ItemNotFoundException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(3, 1, -1, 1, today, tomorrow));
 		});
 		Assertions.assertThrows(ItemNotFoundException.class, () -> {
-			bookingService.createBooking(
+			bookingService.createBookingById(
 				new BookingTO(4, -1, 1, 1, today, tomorrow));
 		});
 	}
@@ -134,7 +134,7 @@ public class BookingServiceTests {
 		LocalDate twentyFifth = LocalDate.now().plusDays(25);
 		LocalDate twentyThird = LocalDate.now().plusDays(22);
 
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, eleventh, fifteenth));
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, eleventh, fifteenth));
 		//when
 		//then
 		bookingService.updateBooking(1, first, fifth);
@@ -158,8 +158,8 @@ public class BookingServiceTests {
 			tomorrow);
 		BookingTO second = new BookingTO(2, 1, 3, 2, today,
 			tomorrow);
-		bookingService.createBooking(first);
-		bookingService.createBooking(second);
+		bookingService.createBookingById(first);
+		bookingService.createBookingById(second);
 		//then
 		Assertions.assertEquals(2, bookingService.getAllBookings().size());
 		Assertions.assertTrue(isBookingTOequalToBooking(first, bookingService.getBookingById(1)));
@@ -174,11 +174,11 @@ public class BookingServiceTests {
 		LocalDate dayThree = LocalDate.now().plusDays(2);
 		LocalDate dateFour = LocalDate.now().plusDays(3);
 		//when
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayOne,
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, dayOne,
 			dayThree));
 		//then
 		Assertions.assertThrows(InvalidDateException.class, () -> {
-			bookingService.createBooking(new BookingTO(1, 1, 1, 1, dayTwo,
+			bookingService.createBookingById(new BookingTO(1, 1, 1, 1, dayTwo,
 				dateFour));
 		});
 
@@ -191,7 +191,7 @@ public class BookingServiceTests {
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		LocalDate todayPlusThree = LocalDate.now().plusDays(3);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today,
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, today,
 			tomorrow));
 		//when
 		bookingService.updateBooking(1, today, todayPlusThree);
@@ -208,8 +208,8 @@ public class BookingServiceTests {
 		LocalDate todayPlusFive = LocalDate.now().plusDays(5);
 		LocalDate todayPlusSix = LocalDate.now().plusDays(6);
 		LocalDate todayPlusSeven = LocalDate.now().plusDays(7);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, today, tomorrow));
-		bookingService.createBooking(new BookingTO(2, 1, 1, 1, todayPlusFive, todayPlusSeven));
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, today, tomorrow));
+		bookingService.createBookingById(new BookingTO(2, 1, 1, 1, todayPlusFive, todayPlusSeven));
 		//when
 		//then
 		Assertions.assertThrows(InvalidDateException.class, () -> {
@@ -225,7 +225,7 @@ public class BookingServiceTests {
 		LocalDate twentyFirst = LocalDate.now().plusDays(20);
 		LocalDate twentyFifth = LocalDate.now().plusDays(25);
 		LocalDate twentySecond = LocalDate.now().plusDays(21);
-		bookingService.createBooking(new BookingTO(1, 1, 1, 1, first, fifth));
+		bookingService.createBookingById(new BookingTO(1, 1, 1, 1, first, fifth));
 
 		BookingTO updateBooking1 = new BookingTO(1, 1, 1, 1, twentyFirst, twentyFifth);
 		BookingTO updateBooking2 = new BookingTO(1, 1, 1, 1, fifth, twentySecond);

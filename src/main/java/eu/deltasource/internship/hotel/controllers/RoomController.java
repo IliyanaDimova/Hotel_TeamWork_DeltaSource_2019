@@ -32,12 +32,12 @@ public class RoomController {
 	}
 
 	@DeleteMapping("/{id}")
-	void deleteRoomById(@PathVariable int id){
+	void deleteRoomById(@PathVariable int id) {
 		roomService.deleteRoomById(id);
 	}
 
 	@PutMapping("/{id}")
-	void deleteRoomById(@PathVariable int id, @RequestBody RoomTO roomTO){
-		roomService.updateRoom(id,roomTO);
+	void deleteRoomById(@PathVariable int id, @RequestBody RoomTO roomTO) {
+		roomService.updateRoom(id, roomTO);
 	}
 }

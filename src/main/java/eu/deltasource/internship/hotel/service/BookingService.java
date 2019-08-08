@@ -37,6 +37,25 @@ public class BookingService {
 		this.guestService = guestService;
 	}
 
+	public void bookFirstAvailable(BookingTO bookingTO) {
+		boolean roomBooked = false;
+		Exception error;
+		for (int i = 1; i <= roomService.findRooms().size(); i++) {
+			try {
+				bookingTO.setRoomId(i);
+				createBookingById(bookingTO);
+				return;
+			} catch (Exception e) {
+
+			}
+		}
+		if (!roomBooked) {
+			throw new InvalidBookingException("No available bookings");
+		}
+
+	}
+
+
 	/**
 	 * Adds a new entry to the repository
 	 * Throws invalid param exception if the booking is null or if the
@@ -44,7 +63,7 @@ public class BookingService {
 	 *
 	 * @param bookingTO transfer object for the guest to be added
 	 */
-	public void createBooking(BookingTO bookingTO) {
+	public void createBookingById(BookingTO bookingTO) {
 
 		validateBooking(bookingTO);
 		validateRoom(bookingTO);
@@ -122,7 +141,7 @@ public class BookingService {
 
 		removeBookingById(bookingTO.getBookingId());
 
-		createBooking(bookingTO);
+		createBookingById(bookingTO);
 	}
 
 	/**
