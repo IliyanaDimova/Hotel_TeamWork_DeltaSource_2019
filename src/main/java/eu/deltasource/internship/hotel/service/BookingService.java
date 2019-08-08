@@ -37,24 +37,26 @@ public class BookingService {
 		this.guestService = guestService;
 	}
 
+	/**
+	 * Creates the booking for the first available room in the date range.
+	 * @param bookingTO
+	 */
 	public void bookFirstAvailable(BookingTO bookingTO) {
 		boolean roomBooked = false;
-		Exception error;
-		for (int i = 1; i <= roomService.findRooms().size(); i++) {
+		validateBooking(bookingTO);
+		for (Room room : roomService.findRooms()) {
 			try {
-				bookingTO.setRoomId(i);
+				bookingTO.setRoomId(room.getRoomId());
 				createBookingById(bookingTO);
 				return;
-			} catch (Exception e) {
+			} catch (InvalidBookingException e) {
 
 			}
 		}
 		if (!roomBooked) {
-			throw new InvalidBookingException("No available bookings");
+			throw new InvalidBookingException("No available rooms");
 		}
-
 	}
-
 
 	/**
 	 * Adds a new entry to the repository
@@ -66,6 +68,7 @@ public class BookingService {
 	public void createBookingById(BookingTO bookingTO) {
 
 		validateBooking(bookingTO);
+
 		validateRoom(bookingTO);
 
 		creationOverlapChecker(bookingTO);
@@ -256,5 +259,4 @@ public class BookingService {
 			throw new InvalidDateException("To date cannot be null");
 		}
 	}
-
 }
