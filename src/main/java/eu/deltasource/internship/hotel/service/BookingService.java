@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,20 +43,18 @@ public class BookingService {
 	 * @param bookingTO
 	 */
 	public void bookFirstAvailable(BookingTO bookingTO) {
-		boolean roomBooked = false;
-		validateBooking(bookingTO);
-		for (Room room : roomService.findRooms()) {
-			try {
-				bookingTO.setRoomId(room.getRoomId());
-				createBookingById(bookingTO);
-				return;
-			} catch (InvalidBookingException e) {
 
-			}
-		}
-		if (!roomBooked) {
+		validateBooking(bookingTO);
+
+		List <Room> availableRooms = getFreeRooms(bookingTO);
+
+		if(availableRooms.isEmpty()){
 			throw new InvalidBookingException("No available rooms");
 		}
+
+		bookingTO.setBookingId(availableRooms.get(0).getRoomId());
+
+		bookingRepository.save(covertBookingTOtoBookingModel(bookingTO));
 	}
 
 	/**
@@ -67,11 +66,7 @@ public class BookingService {
 	 */
 	public void createBookingById(BookingTO bookingTO) {
 
-		validateBooking(bookingTO);
-
-		validateRoom(bookingTO);
-
-		creationOverlapChecker(bookingTO);
+		overlapChecker(bookingTO);
 
 		bookingRepository.save(covertBookingTOtoBookingModel(bookingTO));
 	}
@@ -139,11 +134,9 @@ public class BookingService {
 	public void updateBooking(BookingTO bookingTO) {
 		validateBooking(bookingTO);
 		validateRoom(bookingTO);
-
+		//todo analyse possible bugs
 		updateOverlapChecker(bookingTO);
-
 		removeBookingById(bookingTO.getBookingId());
-
 		createBookingById(bookingTO);
 	}
 
@@ -151,15 +144,15 @@ public class BookingService {
 	 * Checks, if the booking dates are overlapping with any of the existing bookings of the room and throws, if they
 	 * are. To be used in the create booking method.
 	 */
-	//todo add method to controller & test
-	private void creationOverlapChecker(BookingTO booking) {
+	private boolean overlapChecker(BookingTO booking) {
 
 		for (Booking current : bookingRepository.findAll()) {
 			if (current.getRoomId() == booking.getRoomId() && isOverlapping(booking.getFrom(),
 				booking.getTo(), current)) {
-				throw new InvalidDateException("Booking overlaps with another one");
+				return true;
 			}
 		}
+		return false;
 	}
 
 	/**
@@ -229,6 +222,25 @@ public class BookingService {
 	}
 
 	/**
+	 * returns the available rooms for a certain booking
+	 */
+	private List<Room> getFreeRooms(BookingTO bookingTO){
+		List<Room> freeRooms = new ArrayList<>();
+
+		for(Room room : roomService.findRooms()){
+			int currentRoomId = room.getRoomId();
+
+			bookingTO.setRoomId(currentRoomId);
+
+			if(!overlapChecker(bookingTO) && isSpaceEnough(bookingTO.getNumberOfPeople(),room)){
+				freeRooms.add(room);
+			}
+		}
+
+		return freeRooms;
+	}
+
+	/**
 	 * Checks if a booking exists by it's ID and throws an exception, if it does not.
 	 */
 	private void validateBookingID(int bookingID) {
@@ -241,10 +253,9 @@ public class BookingService {
 	 * Converts the BookingTO (Booking transfer object) to a Booking
 	 */
 	private Booking covertBookingTOtoBookingModel(BookingTO bookingTO) {
-		Booking book = new Booking(bookingTO.getBookingId(), bookingTO.getGuestId(), bookingTO.getRoomId(),
+		return new Booking(bookingTO.getBookingId(), bookingTO.getGuestId(), bookingTO.getRoomId(),
 			bookingTO.getNumberOfPeople(),
 			bookingTO.getFrom(), bookingTO.getTo());
-		return book;
 	}
 
 	/**
