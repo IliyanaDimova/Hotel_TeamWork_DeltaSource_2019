@@ -53,7 +53,6 @@ public class BookingRepository {
 	public Booking findById(int id) {
 		for (Booking item : repository) {
 			if (item.getBookingId() == id)
-				//  return new Booking(item);
 				return item;
 		}
 		throw new ItemNotFoundException("A booking with id: " + id + " was not found!");
