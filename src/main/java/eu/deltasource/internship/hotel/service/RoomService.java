@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -114,8 +115,6 @@ public class RoomService {
 		Room newRoom = convertRoomTOtoRoomObject(roomId, room);
 		roomRepository.updateRoom(newRoom);
 	}
-
-	//todo refacture
 
 	public Room convertRoomTOtoRoomObject(int id, RoomTO roomTO) {
 		return new Room(id, convert_roomTOcommoditiesTO_To_AbstractCommodities(roomTO));
