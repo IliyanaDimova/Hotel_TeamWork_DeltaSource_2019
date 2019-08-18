@@ -30,7 +30,7 @@ public class Room {
 	}
 
 	public int getRoomId() {
-		return roomId;
+		return this.roomId;
 	}
 
 	public int getRoomCapacity() {
